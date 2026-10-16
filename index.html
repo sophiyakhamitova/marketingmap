@@ -582,6 +582,17 @@ body.export .hero .sub { display: block !important; }
 }
 :root[data-theme="dark"] .dock button { background: #eeede8; }
 </style>
+<style>
+.hero .lead { font-size: clamp(16px, 2vw, 19px); font-weight: 600; margin: 0 0 12px; color: #f4f3ee; }
+.pp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 16px; max-width: 900px; }
+.pcard { padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 rgba(255,255,255,.14); }
+.pcard b { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #a9acbb; margin-bottom: 4px; }
+.pcard b.sol { color: #e9d8b8; margin-top: 10px; }
+.pcard p { margin: 0; font-size: 14px; line-height: 1.45; color: #e7e7ee; }
+@media (max-width: 700px) { .pp { grid-template-columns: 1fr; gap: 10px; } .pcard { padding: 12px 14px; } }
+</style>
+
 
 
 
@@ -592,6 +603,11 @@ body.export .hero .sub { display: block !important; }
     <div class="name">София Хамитова</div>
     <h1>Каналы маркетинга в РФ 2026</h1>
     <div class="rainbow" aria-hidden="true"></div>
+    <p class="lead">Реклама нужна любому бизнесу. Сложности начинаются дальше:</p>
+    <div class="pp">
+      <div class="pcard"><b>Проблема</b><p>Каналов десятки, правила меняются, и непонятно, что подходит именно вашей нише.</p><b class="sol">Решение</b><p>Введите нишу, и карта подсветит каналы и инструменты, которые для неё работают.</p></div>
+      <div class="pcard"><b>Проблема</b><p>Бюджет уходит в один-два привычных канала, а остальные возможности остаются за кадром.</p><b class="sol">Решение</b><p>Вся картина в одном месте: от Директа до офлайна, с пометками об ограничениях. Можно собрать свой набор каналов.</p></div>
+    </div>
     <p class="sub" id="sub"></p>
   </header>
 
