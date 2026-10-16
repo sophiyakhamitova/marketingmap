@@ -149,6 +149,12 @@ h1 {
   background: none; border: 0; padding: 0 2px; cursor: pointer; text-decoration: underline;
   text-underline-offset: 3px;
 }
+.bfield { margin-top: 16px; }
+.bfield label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.bnote { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); max-width: 110ch; }
+.side p.bud { margin: 10px 0 0; padding: 8px 12px; border-radius: 12px; font-size: 13.5px; background: var(--chip-bg, rgba(127,127,140,.12)); }
+.side p.bud b { font-weight: 600; }
+.side p.bud.over { background: rgba(190,110,40,.14); }
 .info { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); min-height: 1.4em; max-width: 110ch; }
 .info b { color: var(--ink); font-weight: 600; }
 
@@ -295,7 +301,7 @@ details.nichelist li b { color: var(--ink); font-weight: 600; }
 
 /* export mode: used for the PNG and PDF of the whole map */
 body.export { padding: 40px; }
-body.export .field, body.export .chips, body.export .ex, body.export .info, body.export .nichelist,
+body.export .field, body.export .bfield, body.export .chips, body.export .ex, body.export .info, body.export .nichelist,
 body.export .bar, body.export .side, body.export .sub { display: none !important; }
 body.export .layout { display: block; }
 body.export .viewport { height: auto !important; overflow: visible; border: 0; background-image: none; border-radius: 0; }
@@ -672,6 +678,11 @@ body.export .hero .sub { display: none !important; }
   </div>
   <div class="chips" id="chips" role="group" aria-label="Ниша"></div>
   <p class="ex" id="ex"></p>
+  <div class="bfield">
+    <label>Рекламный бюджет в месяц</label>
+    <div class="chips" id="bchips" role="group" aria-label="Рекламный бюджет в месяц"></div>
+    <p class="bnote">Считается только сам рекламный бюджет — без ведения кабинета и услуг специалистов. Цифры — ориентир, с чего можно осмысленно начать.</p>
+  </div>
   <p class="info" id="info" aria-live="polite"></p>
   <details class="nichelist"><summary>Все ниши и примеры</summary><ul id="nichelist"></ul></details>
 
@@ -685,8 +696,8 @@ body.export .hero .sub { display: none !important; }
       <button class="btn" id="collapse" type="button">Свернуть всё</button>
     </div>
     <div class="legend" aria-label="Обозначения">
-      <span><i class="sw h"></i>особенно для вашей ниши</span>
-      <span><i class="sw d"></i>не подходит</span>
+      <span><i class="sw h"></i>особенно подходит (ниша или бюджет)</span>
+      <span><i class="sw d"></i>не подходит по нише или бюджету</span>
       <span><i class="sw g"></i>серая зона</span>
       <span><i class="sw r"></i>запрещено</span>
     </div>
@@ -1938,12 +1949,128 @@ root.hue = 345;
 root.k.forEach((k, i) => paint(k, (i * 20 + 345) % 360));
 const nodes = [];
 (function walk(n) { nodes.push(n); n.k.forEach(walk); })(root);
+
+/* ---------- Budget tiers ----------
+   Rough minimum monthly AD budget (thousand rubles) needed to start a channel in a meaningful way.
+   Only the ad spend itself: no account management, no specialist fees. 0 = can be started without ad spend (own time only).
+   Blocks that are not listed (banned, gray methods) are never dimmed by budget; a block with children takes the cheapest child. */
+const TIERS = {
+  "Яндекс Директ/С чего начать: режим запуска": 50,
+  "Яндекс Директ/Поиск": 50,
+  "Яндекс Директ/РСЯ и медийка": 50,
+  "Яндекс Директ/Товарная реклама": 50,
+  "Яндекс Директ/Видео и Connected TV": 100,
+  "Яндекс Директ/Цифровая наружка через Директ": 100,
+  "Яндекс Директ/Реклама в каналах Telegram": 50,
+  "Яндекс Директ/Реклама в каналах MAX": 50,
+  "Яндекс Директ/Лендинги Директа": 0,
+  "Карты и геосервисы/Яндекс Карты и Яндекс Бизнес": 0,
+  "Карты и геосервисы/2ГИС": 0,
+  "Карты и геосервисы/Отзывы и репутация": 0,
+  "SEO и контент/SEO сайта": 0,
+  "SEO и контент/GEO: нейропоиск": 0,
+  "SEO и контент/Дзен": 0,
+  "SEO и контент/Отраслевые медиа": 0,
+  "ВКонтакте/Сообщество и контент": 0,
+  "ВКонтакте/VK Реклама": 50,
+  "ВКонтакте/VK Клипы и VK Видео": 0,
+  "ВКонтакте/Посевы и блогеры в VK": 50,
+  "MAX/Канал и контент": 0,
+  "MAX/Бизнес-аккаунт": 0,
+  "MAX/MAX Ads": 50,
+  "MAX/Посевы и биржи": 50,
+  "MAX/Перегон аудитории": 0,
+  "Телеграм/Telegram Ads": 100,
+  "Телеграм/Посевы и закуп рекламы": 50,
+  "Телеграм/Канал и контент": 0,
+  "Телеграм/Боты и Mini Apps": 0,
+  "Телеграм/Чаты и комьюнити": 0,
+  "Телеграм/Рассылки в Telegram": 0,
+  "Телеграм/Амбассадоры": 0,
+  "Блогеры и видео/YouTube": 0,
+  "Блогеры и видео/Интеграции у блогеров": 50,
+  "Блогеры и видео/Яндекс ПроБлогер": 50,
+  "Агрегаторы и площадки/Недвижимость: порталы/ЦИАН": 100,
+  "Агрегаторы и площадки/Недвижимость: порталы/Авито Недвижимость": 50,
+  "Агрегаторы и площадки/Недвижимость: порталы/Яндекс Недвижимость": 100,
+  "Агрегаторы и площадки/Недвижимость: порталы/ДомКлик": 100,
+  "Агрегаторы и площадки/Недвижимость: порталы/Региональные порталы": 50,
+  "Агрегаторы и площадки/Недвижимость: порталы/Свой сайт и каналы застройщика": 0,
+  "Агрегаторы и площадки/Маркетплейсы товаров": 0,
+  "Агрегаторы и площадки/Услуги и мастера": 0,
+  "Агрегаторы и площадки/Медицина и красота": 50,
+  "Агрегаторы и площадки/Общепит и доставка": 0,
+  "Агрегаторы и площадки/Авто-площадки": 50,
+  "Агрегаторы и площадки/Путешествия": 0,
+  "Агрегаторы и площадки/Финансы": 50,
+  "Агрегаторы и площадки/B2B-площадки": 50,
+  "Агрегаторы и площадки/Образование и эксперты": 0,
+  "Авито/Размещение и тарифы": 0,
+  "Авито/Авито Реклама": 50,
+  "Авито/Аналитика Авито": 0,
+  "Офлайн-медиа/Наружная реклама": 100,
+  "Офлайн-медиа/Цифровая наружка DOOH": 100,
+  "Офлайн-медиа/Реклама на транспорте": 100,
+  "Офлайн-медиа/Indoor и ТЦ": 50,
+  "Офлайн-медиа/Радио": 100,
+  "Офлайн-медиа/ТВ и Smart TV": 300,
+  "Офлайн-медиа/Кинотеатры": 100,
+  "Офлайн-медиа/Печать и распространение": 50,
+  "Офлайн-медиа/Промо и ивенты на точке": 50,
+  "Офлайн-медиа/Вывески и точка продаж": 50,
+  "Работа с базой/Email и SMS": 0,
+  "Работа с базой/Мессенджер-рассылки": 0,
+  "Работа с базой/Автообзвон": 50,
+  "Работа с базой/Менеджер и CRM": 0,
+  "Работа с базой/Лояльность": 0,
+  "Партнёрства/Коллаборации и кросс-промо": 0,
+  "Партнёрства/Обмен заявками": 0,
+  "Партнёрства/Обмен сертификатами": 0,
+  "Партнёрства/Партнёрская программа": 0,
+  "Партнёрства/Корпоративные клиенты": 0,
+  "Партнёрства/Банки и ипотека": 0,
+  "Партнёрства/Агентства и брокеры недвижимости": 0,
+  "Личный бренд/Эксперт в соцсетях": 0,
+  "Личный бренд/Колонки и подкасты": 0,
+  "Личный бренд/Выступления": 0,
+  "Личный бренд/Рассылка основателя": 0,
+  "Event/Организация": 100,
+  "Event/Участие": 50,
+  "Event/Партнёрство": 0,
+  "Event/Нетворкинги": 0,
+  "PR и репутация/СМИ и экспертные комментарии": 0,
+  "PR и репутация/Рейтинги и премии": 50,
+  "PR и репутация/Работа с негативом": 0,
+  "Аудитории и данные/Ретаргетинг": 50,
+  "Аудитории и данные/Загрузка клиентской базы": 50,
+  "Аудитории и данные/Похожие аудитории (look-alike)": 50,
+  "Аудитории и данные/Офлайн-конверсии": 50,
+  "Аудитории и данные/Гео и профиль": 50,
+  "Сайт и конверсия/Сайт и лендинги": 0,
+  "Сайт и конверсия/Захват заявок": 0,
+  "Сайт и конверсия/CRM и воронка": 0,
+  "Сайт и конверсия/Аналитика": 0,
+  "Сайт и конверсия/Сервис и продажи": 0
+};
+(function tier(n) {
+  n.k.forEach(tier);
+  if (n.k.length) {
+    const ts = n.k.map(c => c.tier).filter(t => t !== undefined);
+    n.tier = ts.length ? Math.min(...ts) : undefined;
+  } else n.tier = TIERS[n.path];
+})(root);
+const BUDGETS = [
+  { v: 0, l: "Бесплатно", t: "бесплатно: без рекламных расходов, только ваше время" },
+  { v: 50, l: "от 50 000 ₽/мес", t: "от 50 000 ₽ в месяц" },
+  { v: 100, l: "от 100 000 ₽/мес", t: "от 100 000 ₽ в месяц" }
+];
+const tierText = t => t === 0 ? "можно начать бесплатно (без рекламных расходов)" : t <= 50 ? "от 50 000 ₽ в месяц" : t <= 100 ? "от 100 000 ₽ в месяц" : "свыше 100 000 ₽ в месяц";
 const NHUE = {};
 KEYS.forEach((k, i) => { NHUE[k] = Math.round((i * 360) / KEYS.length + 8) % 360; });
 
 /* ---------- DOM ---------- */
 const canvas = $("canvas"), svg = $("svg"), vp = $("vp"), zoomer = $("zoomer");
-let filter = null, selected = null, scale = 0.85;
+let filter = null, budget = null, selected = null, scale = 0.85;
 
 nodes.forEach(n => {
   const el = document.createElement("div");
@@ -2003,7 +2130,8 @@ function branchRel(n) {
   if (!filter) return true;
   return n.eff.includes(filter) || n.k.some(branchRel);
 }
-function isDim(n) { return n !== root && !!filter && !branchRel(n); }
+function overB(n) { return budget !== null && n.tier !== undefined && n.tier > budget; }
+function isDim(n) { return n !== root && ((!!filter && !branchRel(n)) || overB(n)); }
 
 function layout() {
   const R = root.k.filter(k => k.side > 0), L = root.k.filter(k => k.side < 0);
@@ -2032,7 +2160,7 @@ function layout() {
     n.el.style.left = (n.x + ox) + "px";
     n.el.style.top = (n.y + oy - n.h / 2) + "px";
     n.el.classList.toggle("dim", isDim(n));
-    n.el.classList.toggle("hit", !!filter && isHit(n, filter));
+    n.el.classList.toggle("hit", ring(n));
     n.el.classList.toggle("sel", n === selected);
     if (n.moreEl) {
       const cnt = (function c(m) { return m.k.reduce((s, k) => s + 1 + c(k), 0); })(n);
@@ -2089,23 +2217,49 @@ function focusNode(n) {
 // ring rule: a block explicitly tagged for the niche, and not simply tagged for every niche
 function isHit(n, k) { return n.own && n.depth >= 2 && n.eff.length < KEYS.length && n.eff.includes(k); }
 // true when somewhere below n there is a ringed block for the chosen niche
+function ring(n) {
+  if (filter) return isHit(n, filter);
+  return budget !== null && n.depth >= 2 && !n.k.length && n.tier === budget;
+}
 function hasHit(n) {
-  return n.k.some(c => isHit(c, filter) || hasHit(c));
+  return n.k.some(c => ring(c) || hasHit(c));
 }
 function recomputeOpen() {
   nodes.forEach(n => {
     if (!n.k.length || n === root) return;
+    const on = !!filter || budget !== null;
     if (filter && n.depth === 1) n.open = branchRel(n);
-    else n.open = n.defOpen || (!!filter && hasHit(n));
+    else n.open = n.defOpen || (on && hasHit(n));
   });
+}
+function updateInfo() {
+  const parts = [];
+  if (filter) {
+    const hits = nodes.filter(n => isHit(n, filter)).length;
+    parts.push(`Ниша: <b>${NICHES[filter].l}</b> (${NICHES[filter].ex}). Тёмной рамкой обведены блоки, которые особенно востребованы в вашей нише: <b>${hits}</b>. Без рамки остаются универсальные блоки, приглушены те, что вашей нише не подходят.`);
+  }
+  if (budget !== null) {
+    const b = BUDGETS.find(x => x.v === budget);
+    const cnt = nodes.filter(n => n.depth >= 2 && !n.k.length && n.tier === budget).length;
+    const rule = budget === 0 ? "Обведены каналы, которые можно вести без рекламных расходов, только своим временем" : `Обведены каналы, с которых разумно начинать именно при таком бюджете (${cnt})${filter ? "" : ""}`;
+    parts.push(`Рекламный бюджет: <b>${b.l}</b>, только реклама, без ведения и услуг специалистов. ${filter ? "Приглушены каналы, которые дороже этого бюджета." : rule + ". Приглушены каналы, которые дороже этого бюджета; каналы дешевле остаются без рамки."} Это ориентир, а не жёсткий порог.`);
+  }
+  if (parts.length) parts.push("Подробности по каждому инструменту смотрите в описании справа.");
+  $("info").innerHTML = parts.join(" ");
 }
 function setFilter(k) {
   filter = k;
   $("chips").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.k === k)));
-  const hits = k ? nodes.filter(n => isHit(n, k)).length : 0;
-  $("info").innerHTML = k
-    ? `Ниша: <b>${NICHES[k].l}</b> (${NICHES[k].ex}). Тёмной рамкой обведены блоки, которые особенно востребованы в вашей нише: <b>${hits}</b>. Без рамки остаются универсальные блоки, приглушены те, что вашей нише не подходят. Подробности по каждому инструменту смотрите в описании справа.`
-    : "";
+  updateInfo();
+  recomputeOpen();
+  layout();
+  centerRoot();
+  if (selected) showDetail(selected);
+}
+function setBudget(v) {
+  budget = v;
+  $("bchips").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(budget !== null && Number(c.dataset.v) === budget)));
+  updateInfo();
   recomputeOpen();
   layout();
   centerRoot();
@@ -2123,6 +2277,12 @@ function detect(text) {
 }
 
 $("chips").innerHTML = KEYS.map(k => `<button type="button" class="chip" data-k="${k}" aria-pressed="false" style="--h:${NHUE[k]}" title="${NICHES[k].ex}">${NICHES[k].l}</button>`).join("");
+$("bchips").innerHTML = BUDGETS.map(b => `<button type="button" class="chip" data-v="${b.v}" aria-pressed="false" style="--h:210" title="${b.t}">${b.l}</button>`).join("");
+$("bchips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const v = Number(b.dataset.v);
+  setBudget(budget === v ? null : v);
+});
 $("ex").innerHTML = "Например: " + EXAMPLES.map(e => `<button type="button" data-e="${e}">${e}</button>`).join(" · ");
 $("nichelist").innerHTML = KEYS.map(k => `<li><b>${NICHES[k].l}</b>: ${NICHES[k].ex}</li>`).join("");
 
@@ -2160,6 +2320,13 @@ function showDetail(n) {
   const cr = pathOf(n);
   if (cr) side.append(el("p", "crumb", cr));
 
+  if (n.tier !== undefined) {
+    const over = overB(n);
+    const bp = el("p", "bud" + (over ? " over" : ""));
+    bp.append(el("b", "", "Рекламный бюджет: "), document.createTextNode(tierText(n.tier) + (n.k.length ? " (самый доступный из вложенных блоков)" : "") + ". Без ведения и услуг специалистов."));
+    if (over) bp.append(document.createTextNode(" Дороже выбранного бюджета."));
+    side.append(bp);
+  }
   let desc = n.d, inherited = false;
   if (!desc && !(n.tools && n.tools.length)) {
     for (let p = n.parent; p && p !== root; p = p.parent) if (p.d) { desc = p.d; inherited = true; break; }
