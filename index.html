@@ -1960,8 +1960,15 @@ $("sub").textContent = `Карта для маркетолога: ${nodes.length
 nodes.forEach(n => { n.w = 100; n.h = 30; });
 layout();
 const fontsReady = document.fonts && document.fonts.load
-  ? Promise.all([document.fonts.load("400 14px Onest"), document.fonts.load("500 15px Onest"), document.fonts.load("600 19px Onest")]).catch(() => {})
+  ? Promise.all(["400 14px Manrope", "500 14px Manrope", "600 15px Manrope", "700 15px Manrope", "600 17px Unbounded"].map(f => document.fonts.load(f))).catch(() => {})
   : Promise.resolve();
-fontsReady.then(boot);
-setTimeout(() => { if (nodes[1].w === 100) boot(); }, 1500);
+let booted = false;
+function bootOnce() { if (!booted) { booted = true; boot(); } }
+fontsReady.then(bootOnce);
+setTimeout(bootOnce, 2500);
+// any font that arrives late changes text widths, so measure and place everything again
+if (document.fonts && document.fonts.addEventListener) {
+  document.fonts.addEventListener("loadingdone", () => { if (booted) { measure(); layout(); } });
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (booted) { measure(); layout(); } });
 </script>
