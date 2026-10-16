@@ -629,6 +629,10 @@ body.export .hero .sub { display: none !important; }
 @media (min-width: 1001px) { .layout { grid-template-columns: minmax(0, 1fr) 340px; } }
 @media (max-width: 1000px) { .viewport { height: min(78vh, 78svh); } }
 </style>
+<style>
+.sw.d { background: transparent; border: 1.5px solid var(--muted); opacity: .45; }
+</style>
+
 
 
 
@@ -677,6 +681,7 @@ body.export .hero .sub { display: none !important; }
     </div>
     <div class="legend" aria-label="Обозначения">
       <span><i class="sw h"></i>именно для вашей ниши</span>
+      <span><i class="sw d"></i>не подходит</span>
       <span><i class="sw g"></i>серая зона</span>
       <span><i class="sw r"></i>запрещено</span>
     </div>
@@ -1945,10 +1950,15 @@ function focusNode(n) {
 }
 
 /* ---------- Niche filter ---------- */
+// true when somewhere below n there is a block made specifically for the chosen niche
+function hasHit(n) {
+  return n.k.some(c => (c.own && c.depth >= 2 && c.eff.includes(filter)) || hasHit(c));
+}
 function recomputeOpen() {
   nodes.forEach(n => {
     if (!n.k.length || n === root) return;
-    n.open = (filter && n.depth === 1) ? branchRel(n) : n.defOpen;
+    if (filter && n.depth === 1) n.open = branchRel(n);
+    else n.open = n.defOpen || (!!filter && hasHit(n));
   });
 }
 function setFilter(k) {
@@ -1956,7 +1966,7 @@ function setFilter(k) {
   $("chips").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.k === k)));
   const hits = k ? nodes.filter(n => n.own && n.depth >= 2 && n.eff.includes(k)).length : 0;
   $("info").innerHTML = k
-    ? `Ниша: <b>${NICHES[k].l}</b> (${NICHES[k].ex}). Зелёным обведено блоков именно для вас: <b>${hits}</b>. Неподходящие ветки приглушены.`
+    ? `Ниша: <b>${NICHES[k].l}</b> (${NICHES[k].ex}). Тёмной рамкой обведены блоки, сделанные именно для вас: <b>${hits}</b>. Остальные подходящие блоки без рамки, неподходящие ветки приглушены.`
     : "";
   recomputeOpen();
   layout();
