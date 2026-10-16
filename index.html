@@ -1,4 +1,9 @@
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#181b2a">
 <title>Каналы маркетинга РФ 2026</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@600;800&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
@@ -497,6 +502,55 @@ body.export .hero .sub { display: block !important; }
   :root:not([data-theme="light"]) .node.l1 { color: #eeede8; }
 }
 </style>
+<style>
+/* Adaptive layout: phones and tablets get a compact top, scrolling chips, a taller map and a bottom sheet for details. */
+.sheet-x { display: none; }
+.viewport { touch-action: pan-x pan-y; }
+@media (max-width: 1000px) {
+  .viewport { height: min(72vh, 72svh); min-height: 340px; }
+  .side {
+    position: fixed; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); top: auto;
+    max-height: 56vh; max-height: 56svh; z-index: 50;
+    transform: translateY(130%); visibility: hidden;
+    transition: transform .25s ease, visibility 0s linear .25s;
+    box-shadow: 0 -10px 40px var(--shade);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5);
+    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    padding-top: 12px;
+  }
+  .side.open { transform: none; visibility: visible; transition: transform .25s ease; }
+  .sheet-x {
+    display: grid; place-items: center; position: sticky; top: 0; margin: -4px -6px 0 auto; float: right;
+    width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--glass-edge);
+    background: var(--glass); color: var(--ink); font: inherit; font-size: 16px; cursor: pointer; z-index: 2;
+  }
+  .side h2 { padding-right: 36px; }
+  body { padding-bottom: 28px; }
+}
+@media (max-width: 640px) {
+  body { padding-top: 12px; }
+  .hero { border-radius: 20px; padding: 18px; margin-bottom: 14px; }
+  .hero::after { width: 170px; height: 170px; right: -60px; top: -60px; }
+  .hero h1 { font-size: clamp(20px, 6vw, 26px); }
+  .hero .sub { font-size: 13.5px; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 4px 16px 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; white-space: nowrap; }
+  .ex { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 0 16px 4px; white-space: nowrap; scrollbar-width: none; }
+  .ex::-webkit-scrollbar { display: none; }
+  .ex > * { flex: none; }
+  .info { font-size: 13px; }
+  .bar { margin: 8px 0; gap: 8px; }
+  .bar .grp { gap: 5px; }
+  .btn { padding: 8px 10px; font-size: 13px; min-height: 38px; }
+  .legend { font-size: 11.5px; gap: 3px 12px; }
+  .field input { font-size: 16px; width: 100%; }
+  .sign { margin-top: 18px; }
+  .viewport { border-radius: 16px; }
+}
+@media (hover: none) { .node:hover, .chip:hover, .btn:hover { transform: none; } }
+</style>
+
 
 
 
@@ -1952,11 +2006,11 @@ $("collapse").addEventListener("click", () => { nodes.forEach(n => { if (n.k.len
 function boot() {
   measure();
   layout();
-  scale = window.innerWidth < 700 ? 0.7 : 0.85;
+  scale = window.innerWidth < 700 ? 0.55 : window.innerWidth < 1000 ? 0.7 : 0.85;
   applyScale();
   centerRoot();
 }
-$("sub").textContent = `Карта для маркетолога: ${nodes.length - 1} каналов и инструментов и применение по 13 нишам. Нажмите на ветку, чтобы раскрыть её.`;
+$("sub").textContent = `Карта для маркетолога: ${nodes.length - 1} каналов и инструментов и применение по 13 нишам. Нажмите на ветку, чтобы раскрыть её. Карту можно двигать пальцем, масштаб — щипком.`;
 nodes.forEach(n => { n.w = 100; n.h = 30; });
 layout();
 const fontsReady = document.fonts && document.fonts.load
@@ -1971,4 +2025,33 @@ if (document.fonts && document.fonts.addEventListener) {
   document.fonts.addEventListener("loadingdone", () => { if (booted) { measure(); layout(); } });
 }
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (booted) { measure(); layout(); } });
+
+// ---- adaptive behaviour: bottom sheet for details on narrow screens, pinch zoom, smaller start scale ----
+const mq = window.matchMedia("(max-width: 1000px)");
+(function () {
+  const side = $("panel");
+  const baseShow = showDetail;
+  showDetail = function (n) {
+    baseShow(n);
+    if (!mq.matches) return;
+    const x = el("button", "sheet-x", "✕");
+    x.type = "button"; x.setAttribute("aria-label", "Закрыть описание");
+    x.addEventListener("click", () => side.classList.remove("open"));
+    side.prepend(x);
+    side.classList.add("open");
+    side.scrollTop = 0;
+  };
+  // tapping empty map space closes the sheet
+  vp.addEventListener("click", e => { if (mq.matches && !e.target.closest(".node")) side.classList.remove("open"); });
+  // pinch to zoom
+  let pinch = null;
+  const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+  vp.addEventListener("touchstart", e => { if (e.touches.length === 2) pinch = { d: dist(e.touches), s: scale }; }, { passive: true });
+  vp.addEventListener("touchmove", e => {
+    if (pinch && e.touches.length === 2) { e.preventDefault(); setScale(pinch.s * dist(e.touches) / pinch.d); }
+  }, { passive: false });
+  vp.addEventListener("touchend", e => { if (e.touches.length < 2) pinch = null; });
+})();
 </script>
+
+</html>
