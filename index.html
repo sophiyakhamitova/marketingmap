@@ -550,6 +550,39 @@ body.export .hero .sub { display: block !important; }
 }
 @media (hover: none) { .node:hover, .chip:hover, .btn:hover { transform: none; } }
 </style>
+<style>
+/* Mobile v2: the description is no longer a floating sheet. It sits under the map; a slim dock at the bottom links to it. */
+.dock { display: none; }
+@media (max-width: 1000px) {
+  .side, .side.open {
+    position: static; transform: none; visibility: visible; transition: none;
+    max-height: none; left: auto; right: auto; bottom: auto; z-index: auto;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    background: var(--glass); box-shadow: 0 8px 24px var(--shade-s), inset 0 1px 0 var(--glass-edge);
+    margin-top: 12px; scroll-margin-top: 12px;
+  }
+  .sheet-x {
+    display: inline-flex; position: static; float: none; width: auto; height: 36px; margin: 0 0 10px; padding: 0 14px;
+    border-radius: 999px; font-size: 13px; font-weight: 600; gap: 6px; align-items: center;
+  }
+  .side h2 { padding-right: 0; }
+  body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .dock {
+    position: fixed; left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 60;
+    display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px;
+    border-radius: 999px; border: 1px solid var(--glass-edge);
+    background: color-mix(in srgb, var(--navy) 92%, transparent); color: #f4f3ee;
+    box-shadow: 0 12px 30px var(--shade);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    transform: translateY(160%); transition: transform .25s ease;
+  }
+  .dock.show { transform: none; }
+  .dock span { flex: 1; min-width: 0; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dock button { flex: none; font: inherit; font-size: 13px; font-weight: 600; border: 0; border-radius: 999px; padding: 9px 16px; background: #f4f3ee; color: var(--navy); cursor: pointer; }
+}
+:root[data-theme="dark"] .dock button { background: #eeede8; }
+</style>
+
 
 
 
@@ -595,6 +628,8 @@ body.export .hero .sub { display: block !important; }
       <p class="muted">Нажмите на ветку карты: она раскроется, а здесь появятся инструменты и форматы и список ниш, которым она подходит. Карту можно двигать мышью или пальцем.</p>
     </aside>
   </div>
+
+  <div class="dock" id="dock" aria-live="polite"><span id="dockt"></span><button type="button" id="dockb">Описание ↓</button></div>
 
   <footer class="sign">
     <div class="mono" aria-hidden="true">СХ</div>
@@ -2026,23 +2061,30 @@ if (document.fonts && document.fonts.addEventListener) {
 }
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (booted) { measure(); layout(); } });
 
-// ---- adaptive behaviour: bottom sheet for details on narrow screens, pinch zoom, smaller start scale ----
+// ---- adaptive behaviour: dock linking to the description, pinch zoom ----
 const mq = window.matchMedia("(max-width: 1000px)");
 (function () {
-  const side = $("panel");
+  const side = $("panel"), dock = $("dock");
+  let sideVisible = false, current = null;
+  const refresh = () => dock.classList.toggle("show", mq.matches && !!current && !sideVisible);
   const baseShow = showDetail;
   showDetail = function (n) {
     baseShow(n);
-    if (!mq.matches) return;
-    const x = el("button", "sheet-x", "✕");
-    x.type = "button"; x.setAttribute("aria-label", "Закрыть описание");
-    x.addEventListener("click", () => side.classList.remove("open"));
-    side.prepend(x);
-    side.classList.add("open");
-    side.scrollTop = 0;
+    current = n;
+    $("dockt").textContent = n.t;
+    if (mq.matches) {
+      const x = el("button", "sheet-x", "↑ К карте");
+      x.type = "button";
+      x.addEventListener("click", () => document.querySelector(".bar").scrollIntoView({ behavior: "smooth", block: "start" }));
+      side.prepend(x);
+    }
+    refresh();
   };
-  // tapping empty map space closes the sheet
-  vp.addEventListener("click", e => { if (mq.matches && !e.target.closest(".node")) side.classList.remove("open"); });
+  $("dockb").addEventListener("click", () => side.scrollIntoView({ behavior: "smooth", block: "start" }));
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(es => { sideVisible = es[0].isIntersecting; refresh(); }, { threshold: 0.25 }).observe(side);
+  }
+  mq.addEventListener && mq.addEventListener("change", refresh);
   // pinch to zoom
   let pinch = null;
   const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
