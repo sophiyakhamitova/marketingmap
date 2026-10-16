@@ -1,0 +1,1967 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Каналы маркетинга РФ 2026</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@600;800&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
+<style>
+/* Layout: brand bar and title on top, niche picker, then a dotted canvas with the mind map and a detail panel.
+   Palette: lavender-white paper, ink-violet text, one hue per branch around the colour wheel (set as --h on every node).
+   Each hue is rendered through shared saturation/lightness tokens, so light and dark themes stay consistent. */
+:root {
+  --bg: #fdfcff;
+  --ink: #1a1630;
+  --muted: #6a6585;
+  --line: #dcd7ee;
+  --panel: #ffffff;
+  --dot: #e6e2f4;
+  --ring: #1a1630;
+  --t-s: 95%;  --t-l: 94%;   /* leaf tint */
+  --s1-s: 92%; --s1-l: 68%;  /* branch fill */
+  --s1-fg: #1a1630;
+  --st-s: 70%; --st-l: 34%;  /* strong text and edges */
+  --ln-s: 78%; --ln-l: 62%;  /* connectors */
+  --grey: #8f6208;
+  --risk: #b3372b;
+  --font: "Onest", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Unbounded", "Inter Display", "Inter", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #13111f;
+    --ink: #f1eefc;
+    --muted: #a49fc0;
+    --line: #3a3556;
+    --panel: #1a1730;
+    --dot: #2a2644;
+    --ring: #f1eefc;
+    --t-s: 42%;  --t-l: 21%;
+    --s1-s: 58%; --s1-l: 40%;
+    --s1-fg: #ffffff;
+    --st-s: 85%; --st-l: 78%;
+    --ln-s: 62%; --ln-l: 52%;
+    --grey: #e3b567;
+    --risk: #f09286;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #13111f;
+  --ink: #f1eefc;
+  --muted: #a49fc0;
+  --line: #3a3556;
+  --panel: #1a1730;
+  --dot: #2a2644;
+  --ring: #f1eefc;
+  --t-s: 42%;  --t-l: 21%;
+  --s1-s: 58%; --s1-l: 40%;
+  --s1-fg: #ffffff;
+  --st-s: 85%; --st-l: 78%;
+  --ln-s: 62%; --ln-l: 52%;
+  --grey: #e3b567;
+  --risk: #f09286;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 18px 36px;
+}
+[hidden] { display: none !important; }
+a { color: inherit; }
+.wrap { max-width: 1500px; margin: 0 auto; }
+
+/* brand */
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 22px; }
+.mono {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: -0.02em;
+  color: #fff;
+  background: conic-gradient(from 210deg, hsl(345 85% 58%), hsl(28 92% 56%), hsl(48 92% 52%), hsl(150 60% 44%), hsl(205 85% 54%), hsl(268 75% 60%), hsl(345 85% 58%));
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  flex: none;
+}
+.who { display: flex; flex-direction: column; min-width: 0; }
+.who b { font-family: var(--display); font-weight: 500; font-size: 14px; letter-spacing: -0.01em; }
+.who span { font-size: 12.5px; color: var(--muted); }
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(26px, 5vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.rainbow {
+  height: 7px; border-radius: 4px; width: min(460px, 70%); margin: 0 0 14px;
+  background: linear-gradient(90deg, hsl(345 85% 60%), hsl(25 92% 58%), hsl(48 92% 54%), hsl(145 60% 48%), hsl(200 85% 55%), hsl(265 75% 62%), hsl(320 80% 60%));
+}
+.sub { margin: 0 0 18px; color: var(--muted); font-size: 14.5px; max-width: 78ch; }
+
+/* niche picker */
+.field label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.field input {
+  font: inherit;
+  color: var(--ink);
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: min(560px, 100%);
+}
+.field input:focus { border-color: hsl(265 75% 62%); outline: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.chip {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  background: hsl(var(--h) var(--t-s) var(--t-l));
+  border: 1.5px solid hsl(var(--h) var(--st-s) var(--st-l) / 0.35);
+  border-radius: 999px;
+  padding: 5px 13px;
+  cursor: pointer;
+}
+.chip:hover { border-color: hsl(var(--h) var(--st-s) var(--st-l) / 0.8); }
+.chip[aria-pressed="true"] {
+  background: hsl(var(--h) var(--s1-s) var(--s1-l));
+  color: var(--s1-fg);
+  border-color: hsl(var(--h) var(--s1-s) var(--s1-l));
+}
+.ex { font-size: 13px; color: var(--muted); margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+.ex button {
+  font: inherit; font-size: 13px; color: hsl(265 70% 52%);
+  background: none; border: 0; padding: 0 2px; cursor: pointer; text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.info { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); min-height: 1.4em; max-width: 110ch; }
+.info b { color: var(--ink); font-weight: 600; }
+
+details.nichelist { margin-top: 8px; font-size: 13px; color: var(--muted); }
+details.nichelist summary { cursor: pointer; }
+details.nichelist ul { margin: 8px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 4px 20px; }
+details.nichelist li b { color: var(--ink); font-weight: 600; }
+
+/* toolbar */
+.bar {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between;
+  margin: 16px 0 10px;
+}
+.bar .grp { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.btn {
+  font: inherit; font-size: 13px; font-weight: 500; color: var(--ink);
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 6px 12px; cursor: pointer; min-width: 36px;
+}
+.btn:hover { border-color: hsl(265 75% 62%); }
+.zoomv { font-size: 12px; color: var(--muted); min-width: 40px; text-align: center; font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 24px; height: 13px; border-radius: 5px; background: hsl(265 var(--t-s) var(--t-l)); display: inline-block; }
+.sw.g { border: 1.5px dashed var(--grey); background: transparent; }
+.sw.r { border: 1.5px solid var(--risk); background: transparent; }
+.sw.h { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ring); }
+.btn:focus-visible, .chip:focus-visible, input:focus-visible, .ex button:focus-visible, .node:focus-visible, .inside button:focus-visible {
+  outline: 2px solid hsl(265 75% 62%); outline-offset: 2px;
+}
+
+/* map + panel */
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 14px; align-items: start; }
+.viewport {
+  position: relative;
+  height: min(80vh, 840px);
+  min-height: 380px;
+  overflow: auto;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background-color: var(--panel);
+  background-image: radial-gradient(var(--dot) 1.3px, transparent 1.3px);
+  background-size: 22px 22px;
+  cursor: grab;
+  overscroll-behavior: contain;
+}
+.viewport.drag { cursor: grabbing; user-select: none; }
+.zoomer { position: relative; }
+.canvas { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.canvas svg { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+.canvas path { fill: none; stroke: hsl(var(--h) var(--ln-s) var(--ln-l)); stroke-width: 2.2; stroke-linecap: round; }
+.canvas path.dim { opacity: 0.2; }
+
+.node {
+  position: absolute;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border-radius: 9px;
+  font-size: 14px;
+  white-space: nowrap;
+  width: max-content;
+  color: var(--ink);
+  background: hsl(var(--h) var(--t-s) var(--t-l));
+  border: 1.5px solid hsl(var(--h) var(--st-s) var(--st-l) / 0.28);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  user-select: none;
+}
+.node.l1 {
+  background: hsl(var(--h) var(--s1-s) var(--s1-l));
+  color: var(--s1-fg);
+  border-color: transparent;
+  font-weight: 600; font-size: 15px; height: 36px; padding: 0 15px; border-radius: 11px;
+}
+.node.root {
+  background: linear-gradient(115deg, hsl(345 88% 58%), hsl(18 92% 56%) 55%, hsl(36 95% 54%));
+  color: #fff; border-color: transparent;
+  font-family: var(--display); font-weight: 700; letter-spacing: -0.02em;
+  font-size: 19px; height: 56px; padding: 0 26px; border-radius: 16px; cursor: default;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 6px 18px hsl(18 90% 56% / 0.35);
+}
+.node.sel { border-color: var(--ink); }
+.node.l1.sel { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ink); }
+.node.dim { opacity: 0.24; }
+.node.hit { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ring); }
+.node.g { border: 1.5px dashed var(--grey); }
+.node.x { border: 1.5px solid var(--risk); }
+.mk { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; border: 1.5px solid currentColor; background: var(--panel); }
+.mk.g { color: var(--grey); }
+.mk.x { color: var(--risk); }
+.more {
+  font-size: 11px; font-weight: 600; color: var(--ink);
+  background: var(--panel); border-radius: 999px; padding: 0 7px;
+}
+
+.side {
+  position: sticky;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  max-height: calc(100vh - 24px - env(safe-area-inset-top, 0px));
+  overflow: auto;
+  border: 2px solid var(--line);
+  border-top: 7px solid hsl(var(--h, 265) 82% 62%);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 14px 18px 18px;
+  min-width: 0;
+}
+.side h2 { font-family: var(--display); font-size: 17px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 3px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; line-height: 1.25; }
+.crumb { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+.side p { margin: 0 0 10px; }
+.side h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: hsl(var(--h, 265) var(--st-s) var(--st-l)); margin: 16px 0 7px; }
+.side ul.tools { margin: 0; padding: 0; list-style: none; }
+.side ul.tools li { margin: 0 0 7px; padding-left: 16px; position: relative; }
+.side ul.tools li::before {
+  content: ""; position: absolute; left: 0; top: 0.5em; width: 8px; height: 8px; border-radius: 50%;
+  background: hsl(var(--h, 265) 82% 62%);
+}
+.side ul.tools li b { font-weight: 600; }
+.inside { display: flex; flex-wrap: wrap; gap: 6px; }
+.inside button {
+  font: inherit; font-size: 13px; font-weight: 500; color: var(--ink);
+  background: hsl(var(--h, 265) var(--t-s) var(--t-l));
+  border: 1.5px solid hsl(var(--h, 265) var(--st-s) var(--st-l) / 0.3);
+  border-radius: 8px; padding: 3px 10px; cursor: pointer;
+}
+.fit { display: flex; flex-wrap: wrap; gap: 5px; }
+.fit span {
+  font-size: 12px; font-weight: 500; border-radius: 999px; padding: 2px 10px;
+  background: hsl(var(--nh) var(--t-s) var(--t-l)); border: 1.5px solid hsl(var(--nh) var(--st-s) var(--st-l) / 0.3);
+}
+.fit span.on { background: hsl(var(--nh) var(--s1-s) var(--s1-l)); color: var(--s1-fg); border-color: transparent; }
+.muted { color: var(--muted); }
+
+/* signature */
+.sign {
+  margin-top: 26px; padding-top: 16px; border-top: 2px solid var(--line);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; font-size: 13.5px;
+}
+.sign .who span a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* export mode: used for the PNG and PDF of the whole map */
+body.export { padding: 40px; }
+body.export .field, body.export .chips, body.export .ex, body.export .info, body.export .nichelist,
+body.export .bar, body.export .side, body.export .sub { display: none !important; }
+body.export .layout { display: block; }
+body.export .viewport { height: auto !important; overflow: visible; border: 0; background-image: none; border-radius: 0; }
+
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .side { position: static; max-height: none; }
+}
+@media (max-width: 640px) {
+  .bar { flex-direction: column; align-items: stretch; }
+}
+@media (prefers-reduced-motion: reduce) { .node { transition: none; } }
+</style>
+<style>
+/* Restored palette (paper, grey boxes, peach centre, green ring) with glass and soft 3D on top.
+   Tokens are redefined here; every node reads them, so the per-branch hues from before are neutralised. */
+:root {
+  --bg: #f6f5f2; --ink: #1d1d1f; --muted: #66666c; --line: #c9c9ce; --panel: #ffffff;
+  --root: #fde8d2; --root-line: #f0cfa8; --ok: #1f8a57; --accent: #2f5fd0; --ring: #1f8a57; --dot: #e4e3e0;
+  --glass: rgba(255,255,255,.58); --glass-2: rgba(255,255,255,.38); --glass-edge: rgba(255,255,255,.85);
+  --shade: rgba(40,36,30,.14); --shade-s: rgba(40,36,30,.08);
+  --leaf: rgba(240,240,242,.72); --branch: rgba(222,222,227,.8);
+  --blob1: #fbd3a8; --blob2: #cfe3d8; --blob3: #d9d6ee;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121214; --ink: #ececee; --muted: #9c9ca4; --line: #4a4a52; --panel: #1b1b1e;
+    --root: #4a3a2b; --root-line: #6b543d; --ok: #5fcf9c; --accent: #7aa2ff; --ring: #5fcf9c; --dot: #26262b;
+    --glass: rgba(40,40,46,.55); --glass-2: rgba(50,50,58,.4); --glass-edge: rgba(255,255,255,.14);
+    --shade: rgba(0,0,0,.5); --shade-s: rgba(0,0,0,.35);
+    --leaf: rgba(58,58,66,.6); --branch: rgba(82,82,92,.7);
+    --blob1: #5a3d22; --blob2: #1f4a39; --blob3: #3a3566;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121214; --ink: #ececee; --muted: #9c9ca4; --line: #4a4a52; --panel: #1b1b1e;
+  --root: #4a3a2b; --root-line: #6b543d; --ok: #5fcf9c; --accent: #7aa2ff; --ring: #5fcf9c; --dot: #26262b;
+  --glass: rgba(40,40,46,.55); --glass-2: rgba(50,50,58,.4); --glass-edge: rgba(255,255,255,.14);
+  --shade: rgba(0,0,0,.5); --shade-s: rgba(0,0,0,.35);
+  --leaf: rgba(58,58,66,.6); --branch: rgba(82,82,92,.7);
+  --blob1: #5a3d22; --blob2: #1f4a39; --blob3: #3a3566;
+}
+body { position: relative; overflow-x: hidden; }
+body::before, body::after, .wrap::before {
+  content: ""; position: fixed; z-index: -1; border-radius: 50%; filter: blur(70px); opacity: .75; pointer-events: none;
+}
+body::before { width: 520px; height: 520px; left: -140px; top: -120px; background: var(--blob1); }
+body::after { width: 560px; height: 560px; right: -160px; top: 30vh; background: var(--blob2); }
+.wrap::before { width: 480px; height: 480px; left: 30vw; bottom: -200px; background: var(--blob3); }
+
+h1 { font-family: var(--font); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(26px, 4.6vw, 38px); }
+.who b, .side h2 { font-family: var(--font); font-weight: 600; letter-spacing: 0; }
+.rainbow { height: 5px; width: 120px; background: linear-gradient(90deg, var(--root-line), var(--ok)); box-shadow: 0 2px 6px var(--shade-s); }
+
+/* 3D sphere monogram */
+.mono {
+  color: #5a3b1c; text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  background: radial-gradient(circle at 32% 26%, #fff 0, #fde8d2 30%, #f0b985 78%, #d99560 100%);
+  box-shadow: inset -3px -4px 8px rgba(150,90,40,.35), inset 2px 2px 5px rgba(255,255,255,.9), 0 6px 14px var(--shade);
+}
+
+/* glass surfaces */
+.field input, .btn, .chip, .viewport, .side {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid var(--glass-edge);
+  box-shadow: 0 8px 24px var(--shade-s), inset 0 1px 0 var(--glass-edge);
+}
+.field input { border-radius: 12px; }
+.field input:focus { border-color: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent), 0 8px 24px var(--shade-s); }
+.chip, .btn { transition: transform .15s, box-shadow .15s; }
+.chip:hover, .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 22px var(--shade); border-color: var(--glass-edge); }
+.chip:active, .btn:active { transform: translateY(0); }
+.chip[aria-pressed="true"] {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 82%, #fff), var(--ink)); color: var(--bg); border-color: var(--ink);
+  box-shadow: 0 8px 18px var(--shade), inset 0 1px 0 rgba(255,255,255,.3);
+}
+.ex button { color: var(--accent); }
+.viewport { border-radius: 20px; background-image: radial-gradient(var(--dot) 1.2px, transparent 1.2px); background-size: 22px 22px; background-color: var(--glass-2); }
+.side { border-radius: 20px; border-top: 1px solid var(--glass-edge); }
+.side h3 { color: var(--muted); }
+.side ul.tools li::before { background: radial-gradient(circle at 35% 30%, #fff, var(--root-line) 70%); box-shadow: 0 1px 3px var(--shade); }
+.sw { background: var(--leaf); }
+.sw.h { box-shadow: 0 0 0 2px var(--ring); background: var(--leaf); }
+
+/* connectors */
+.canvas path, .canvas path[style] { stroke: var(--line); stroke-width: 1.8; }
+
+/* nodes: raised glass tiles */
+.node, .node.l1 {
+  background: linear-gradient(180deg, rgba(255,255,255,.55), transparent 60%), var(--leaf);
+  color: var(--ink);
+  border: 1px solid var(--glass-edge);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: 0 1px 0 var(--glass-edge) inset, 0 -2px 0 rgba(0,0,0,.05) inset, 0 4px 10px var(--shade-s), 0 1px 2px var(--shade-s);
+  transition: opacity .15s, transform .15s, box-shadow .15s;
+}
+.node.l1 { background: linear-gradient(180deg, rgba(255,255,255,.6), transparent 65%), var(--branch); font-weight: 600; border-radius: 11px; }
+.node:hover { transform: translateY(-2px); box-shadow: 0 1px 0 var(--glass-edge) inset, 0 -2px 0 rgba(0,0,0,.05) inset, 0 10px 18px var(--shade); }
+.node.root {
+  background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,0) 55%), linear-gradient(135deg, #fff1e1, var(--root) 45%, #f6c99b);
+  border: 1px solid var(--root-line); color: #3d2813; text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  font-family: var(--font); font-weight: 600; letter-spacing: -0.01em; border-radius: 18px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.9), inset 0 -5px 10px rgba(190,120,60,.25), 0 14px 28px rgba(210,140,80,.35), 0 3px 6px var(--shade-s);
+}
+.node.root:hover { transform: none; }
+:root[data-theme="dark"] .node.root { background: linear-gradient(180deg, rgba(255,255,255,.18), transparent 55%), linear-gradient(135deg, #5b4632, #4a3a2b); color: #fbe9d4; text-shadow: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .node.root { background: linear-gradient(180deg, rgba(255,255,255,.18), transparent 55%), linear-gradient(135deg, #5b4632, #4a3a2b); color: #fbe9d4; text-shadow: none; } }
+.node.sel, .node.l1.sel { border-color: var(--ink); box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ink), 0 10px 18px var(--shade); }
+.node.hit, .node.l1.hit { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ring), 0 10px 20px var(--shade); }
+.node.g { border: 1px dashed var(--grey); }
+.node.x { border: 1px solid var(--risk); }
+.mk { background: var(--panel); border-width: 1px; font-weight: 500; }
+.more { background: var(--panel); color: var(--muted); border: 1px solid var(--line); font-weight: 500; }
+.inside button, .fit span { background: var(--leaf); border: 1px solid var(--glass-edge); box-shadow: 0 2px 6px var(--shade-s); color: var(--ink); }
+.fit span.on { background: var(--ok); color: #fff; border-color: transparent; }
+.sign { border-top: 1px solid var(--line); }
+body.export { background: var(--bg); }
+body.export .viewport { background: transparent; backdrop-filter: none; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .node, .chip, .btn { transition: none; } .node:hover, .chip:hover, .btn:hover { transform: none; } }
+</style>
+<style>
+/* Brand palette from the author's site: deep navy, warm cream, beige-grey backdrop. */
+:root {
+  --bg: #e2e1dc; --ink: #181b2a; --muted: #6b6a66; --line: #bdbcb6; --panel: #eeede8;
+  --navy: #181b2a; --navy-2: #272b40; --cream: #eeede8;
+  --root: #181b2a; --root-line: #3a3f58; --ok: #181b2a; --ring: #181b2a; --accent: #181b2a; --dot: #d3d2cb;
+  --glass: rgba(238,237,232,.62); --glass-2: rgba(238,237,232,.4); --glass-edge: rgba(255,255,255,.8);
+  --shade: rgba(24,27,42,.2); --shade-s: rgba(24,27,42,.1);
+  --leaf: rgba(244,243,239,.78); --branch: rgba(24,27,42,.9);
+  --blob1: #c9ccd8; --blob2: #f3f1ea; --blob3: #b9bdcf;
+  --font: "Manrope", "Inter", system-ui, sans-serif;
+  --display: "Unbounded", "Inter", system-ui, sans-serif;
+  --serif: "Cormorant Garamond", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e101a; --ink: #eeede8; --muted: #a2a1a8; --line: #3a3f58; --panel: #181b2a;
+    --root: #eeede8; --root-line: #bdbcb6; --ok: #eeede8; --ring: #eeede8; --accent: #c7cbe0; --dot: #232739;
+    --glass: rgba(39,43,64,.55); --glass-2: rgba(39,43,64,.35); --glass-edge: rgba(255,255,255,.14);
+    --shade: rgba(0,0,0,.55); --shade-s: rgba(0,0,0,.35);
+    --leaf: rgba(52,57,82,.6); --branch: rgba(238,237,232,.14);
+    --blob1: #2b3150; --blob2: #1d2036; --blob3: #3a3f66;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e101a; --ink: #eeede8; --muted: #a2a1a8; --line: #3a3f58; --panel: #181b2a;
+  --root: #eeede8; --root-line: #bdbcb6; --ok: #eeede8; --ring: #eeede8; --accent: #c7cbe0; --dot: #232739;
+  --glass: rgba(39,43,64,.55); --glass-2: rgba(39,43,64,.35); --glass-edge: rgba(255,255,255,.14);
+  --shade: rgba(0,0,0,.55); --shade-s: rgba(0,0,0,.35);
+  --leaf: rgba(52,57,82,.6); --branch: rgba(238,237,232,.14);
+  --blob1: #2b3150; --blob2: #1d2036; --blob3: #3a3f66;
+}
+/* hero band */
+.hero {
+  position: relative; overflow: hidden;
+  background: radial-gradient(120% 140% at 85% -20%, #323859 0, transparent 55%), linear-gradient(160deg, #1d2136, var(--navy));
+  color: #f4f3ee; border-radius: 24px; padding: clamp(18px, 3vw, 32px);
+  margin-bottom: 18px;
+  box-shadow: 0 24px 50px var(--shade), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.hero::after { content:""; position:absolute; right:-70px; top:-70px; width:300px; height:300px; border-radius:50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.28), rgba(255,255,255,.04) 55%, transparent 70%);
+  border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(3px); }
+.hero > * { position: relative; z-index: 1; }
+.eyebrow { font-size: 14px; color: #a9acbb; margin-bottom: 4px; }
+.name { font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #cfd1dc; margin-bottom: 14px; }
+.hero h1 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.04;
+  font-size: clamp(22px, 3.4vw, 40px); max-width: 30ch; margin: 0 0 14px; color: #fff; }
+.hero .rainbow { width: min(480px, 70%); height: 1px; border-radius: 0; background: rgba(255,255,255,.28); box-shadow: none; margin: 0 0 16px; }
+.hero .tag { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 2.2vw, 26px); line-height: 1.2; margin: 0 0 10px; color: #f4f3ee; }
+.hero .sub { color: #b8bacb; margin: 0; }
+body.export .hero .sub { display: block !important; }
+
+.mono { color: #eeede8; text-shadow: none; background: radial-gradient(circle at 32% 26%, #6b7094 0, #2a2e47 40%, #11131f 100%);
+  box-shadow: inset -3px -4px 8px rgba(0,0,0,.5), inset 2px 2px 5px rgba(255,255,255,.35), 0 6px 14px var(--shade); }
+
+.field label, .side h3 { color: var(--muted); }
+.chip[aria-pressed="true"], .chip[aria-pressed="true"]:hover { background: linear-gradient(180deg, var(--navy-2), var(--navy)); color: #f4f3ee; border-color: var(--navy); }
+.ex button { color: var(--navy); }
+.field input:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(24,27,42,.18), 0 8px 24px var(--shade-s); }
+.sw.h, .node.hit, .node.l1.hit { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--navy); }
+.node.hit, .node.l1.hit { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ring), 0 10px 20px var(--shade); }
+.fit span.on { background: var(--navy); color: #f4f3ee; }
+.side ul.tools li::before { background: radial-gradient(circle at 35% 30%, #8a8fb3, var(--navy) 70%); }
+
+/* nodes */
+.node.root {
+  background: linear-gradient(180deg, rgba(255,255,255,.22), transparent 55%), linear-gradient(135deg, #2b3050, var(--navy));
+  border: 1px solid rgba(255,255,255,.16); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3), inset 0 -6px 12px rgba(0,0,0,.35), 0 16px 30px rgba(24,27,42,.4);
+}
+.node.l1 { background: linear-gradient(180deg, rgba(255,255,255,.2), transparent 60%), var(--branch); color: #f4f3ee; border-color: rgba(255,255,255,.14); font-weight: 600; }
+.node.l1 .more { background: rgba(255,255,255,.16); color: #f4f3ee; border: 0; }
+.node.l1.sel { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--navy), 0 10px 18px var(--shade); }
+.node.sel { border-color: var(--navy); }
+.canvas path, .canvas path[style] { stroke: #9d9ca6; stroke-width: 1.6; }
+.node.g { border: 1px dashed var(--grey); } .node.x { border: 1px solid var(--risk); }
+:root[data-theme="dark"] .node.root { background: linear-gradient(180deg, rgba(255,255,255,.7), transparent 55%), linear-gradient(135deg, #fff, #cfcfd6); color: var(--navy); text-shadow: none; }
+:root[data-theme="dark"] .node.l1 { color: #eeede8; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .node.root { background: linear-gradient(180deg, rgba(255,255,255,.7), transparent 55%), linear-gradient(135deg, #fff, #cfcfd6); color: var(--navy); text-shadow: none; }
+  :root:not([data-theme="light"]) .node.l1 { color: #eeede8; }
+}
+</style>
+
+
+
+<div class="wrap">
+  <header class="hero">
+    <div class="name">София Хамитова</div>
+    <h1>Каналы маркетинга в РФ 2026</h1>
+    <div class="rainbow" aria-hidden="true"></div>
+    <p class="sub" id="sub"></p>
+  </header>
+
+  <div class="field">
+    <label for="niche">Ваша ниша</label>
+    <input id="niche" type="search" placeholder="Например: стоматология, онлайн-школа, новостройки" autocomplete="off">
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Ниша"></div>
+  <p class="ex" id="ex"></p>
+  <p class="info" id="info" aria-live="polite"></p>
+  <details class="nichelist"><summary>Все ниши и примеры</summary><ul id="nichelist"></ul></details>
+
+  <div class="bar">
+    <div class="grp">
+      <button class="btn" id="zout" type="button" aria-label="Уменьшить">−</button>
+      <span class="zoomv" id="zv">85%</span>
+      <button class="btn" id="zin" type="button" aria-label="Увеличить">+</button>
+      <button class="btn" id="zfit" type="button">Вписать</button>
+      <button class="btn" id="expand" type="button">Развернуть всё</button>
+      <button class="btn" id="collapse" type="button">Свернуть всё</button>
+    </div>
+    <div class="legend" aria-label="Обозначения">
+      <span><i class="sw h"></i>именно для вашей ниши</span>
+      <span><i class="sw g"></i>серая зона</span>
+      <span><i class="sw r"></i>запрещено</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="viewport" id="vp" tabindex="-1">
+      <div class="zoomer" id="zoomer"><div class="canvas" id="canvas"><svg id="svg" aria-hidden="true"></svg></div></div>
+    </div>
+    <aside class="side" id="panel" aria-live="polite" aria-label="Описание выбранного блока">
+      <p class="muted">Нажмите на ветку карты: она раскроется, а здесь появятся инструменты и форматы и список ниш, которым она подходит. Карту можно двигать мышью или пальцем.</p>
+    </aside>
+  </div>
+
+  <footer class="sign">
+    <div class="mono" aria-hidden="true">СХ</div>
+    <div class="who">
+      <b>Автор карты — София Хамитова</b>
+      <span>Telegram: <a href="https://t.me/sofiyafa">@sofiyafa</a> · <a href="https://t.me/sophiyakhamitova">@sophiyakhamitova</a> · <a href="https://sophiya-khamitova.tilda.ws">sophiya-khamitova.tilda.ws</a></span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* ---------- Niches ---------- */
+const NICHES = {
+  ecom:   { l: "Интернет-магазины и товары", ex: "одежда, косметика, мебель, электроника, товары для дома",
+            kw: ["магазин", "товар", "одежд", "обув", "косметик", "мебел", "электроник", "техник", "ecom", "e-com", "маркетплейс", "продукт", "аксессуар"] },
+  food:   { l: "Общепит и доставка", ex: "кафе, рестораны, кофейни, пекарни, доставка еды",
+            kw: ["кафе", "ресторан", "кофе", "пекарн", "доставк", "еда", "бар ", "столов", "пицц", "суши"] },
+  beauty: { l: "Красота и фитнес", ex: "салоны, барбершопы, студии, фитнес-клубы, SPA",
+            kw: ["салон", "барбер", "красот", "фитнес", "spa", "спа", "маникюр", "ногт", "студи", "йога", "массаж", "тренажер"] },
+  med:    { l: "Медицина и клиники", ex: "стоматология, клиники, лаборатории, косметология",
+            kw: ["стомат", "клиник", "медиц", "врач", "лаборатор", "косметолог", "зуб", "анализ", "здоров"] },
+  edu:    { l: "Образование и онлайн-школы", ex: "онлайн-школы, курсы, репетиторы, детские центры, вузы",
+            kw: ["школ", "курс", "обучен", "репетит", "образован", "вуз", "английск", "егэ", "детск", "академи"] },
+  exp:    { l: "Эксперты и частные специалисты", ex: "психологи, юристы, консультанты, коучи, фотографы",
+            kw: ["психолог", "юрист", "консульт", "коуч", "эксперт", "фотограф", "нотариус", "адвокат", "тренер", "наставник"] },
+  b2bs:   { l: "B2B-услуги и IT", ex: "IT-аутсорсинг, SaaS, агентства, бухгалтерия, консалтинг",
+            kw: ["b2b", "аутсорс", "saas", "софт", "разработк", "агентств", "бухгалт", "crm", "it ", "it-", "консалтинг", "digital"] },
+  b2bp:   { l: "Производство и опт", ex: "оборудование, стройматериалы, упаковка, металлопрокат",
+            kw: ["производств", "оборудован", "опт", "металл", "упаковк", "завод", "стройматериал", "поставщик", "комплектующ"] },
+  re:     { l: "Недвижимость", ex: "новостройки, вторичка, аренда, загородные дома, коммерческая",
+            kw: ["недвиж", "новостро", "квартир", "аренд", "застройщик", "риелтор", "риэлтор", "жк ", "загородн", "коттедж", "участок"] },
+  build:  { l: "Строительство и ремонт", ex: "ремонт квартир, строительство домов, окна, кровля, дизайн интерьеров",
+            kw: ["ремонт", "строительств", "окна", "кровл", "дизайн интерьер", "отделк", "фундамент", "натяжн", "двер"] },
+  auto:   { l: "Авто", ex: "дилеры, автосервис, шиномонтаж, запчасти, такси",
+            kw: ["авто", "дилер", "шиномонтаж", "запчаст", "такси", "сто ", "машин", "детейлинг"] },
+  fin:    { l: "Финансы и страхование", ex: "кредиты, лизинг, страхование, брокеры, МФО",
+            kw: ["кредит", "лизинг", "страхов", "банк", "займ", "брокер", "ипотек", "финанс", "мфо"] },
+  travel: { l: "Туризм и отели", ex: "отели, турагентства, экскурсии, глэмпинги, базы отдыха",
+            kw: ["отел", "тур", "экскурс", "глэмпинг", "турагент", "путешеств", "хостел", "база отдыха", "санатор"] }
+};
+const KEYS = Object.keys(NICHES);
+const EXAMPLES = ["Стоматология", "Онлайн-школа", "Новостройки", "Интернет-магазин одежды", "Кофейня", "IT-аутсорсинг", "Ремонт квартир", "Автосервис"];
+
+const ALL = KEYS.join(" ");
+const B2C = "ecom food beauty med edu exp re build auto fin travel";
+const LOCAL = "food beauty med edu exp build auto travel";
+const BIGTICKET = "re build auto fin med b2bs b2bp edu travel";
+
+/* ---------- Data ---------- */
+/* X(title, opts, kids). Opts:
+   n = niches (space separated; inherited when omitted), d = description,
+   tools = list of "Название — пояснение", nt = { niche: how to apply },
+   m = marker label, p = 'g' | 'x', c = start collapsed. */
+const X = (t, o, k) => Object.assign({ t }, o || {}, { k: k || [] });
+
+const RIGHT = [
+  X("Яндекс Директ", {
+    n: ALL,
+    d: "Контекстная платформа Яндекса: поиск, РСЯ, медийка, видео, карты и мессенджеры в одном кабинете.",
+    nt: {
+      ecom: "Основа канала: товарные кампании из фида, ретаргетинг, Поиск по брендовым запросам.",
+      re: "Поиск по запросам «купить» и «снять», баннеры в РСЯ для акций.",
+      med: "Поиск по услугам плюс карточка на Картах.",
+      b2bs: "Поиск по отраслевым запросам, ретаргетинг и лид-магнит для длинного цикла.",
+      edu: "Поиск по направлению и РСЯ для прогрева, пики перед учебным годом.",
+      food: "Гео-кампании вокруг точки и Яндекс Карты."
+    }
+  }, [
+    X("Режимы запуска", {
+      d: "Определяют, сколько контроля у вас в руках.",
+      tools: [
+        "Мастер кампаний — упрощённый запуск для малого бизнеса без специалиста",
+        "Единая перфоманс-кампания (ЕПК) — поиск, РСЯ, товарные объявления, баннеры и видео в одной кампании",
+        "ИИ-помощник — запуск кампании в диалоге с генерацией текстов, картинок и лендинга",
+        "Адаптация бюджета — автоматический рост недельного бюджета в ЕПК и Мастере кампаний"
+      ]
+    }),
+    X("Поиск", {
+      d: "Горячий спрос: человек уже ищет.",
+      tools: [
+        "Текстовые объявления — показ по ключевым фразам",
+        "Динамические места на Поиске — подбор страницы под запрос по адресу главной",
+        "Баннер на Поиске — один крупный баннер под поисковой строкой",
+        "Брендовые кампании — защита названия от конкурентов",
+        "Быстрые ссылки и уточнения — расширения объявления"
+      ]
+    }),
+    X("РСЯ и медийка", {
+      d: "Охват, знакомство с брендом и возврат посетителей.",
+      tools: [
+        "Текстово-графические объявления — текст с картинкой на сайтах сети",
+        "Графические баннеры — акции, недвижимость, авто, ретаргетинг",
+        "Видеообъявления — ролики 5–60 секунд в Видеосети",
+        "Видеобаннеры — картинка с видео и автозапуском",
+        "Непропускаемое видео — ролик до 15 секунд",
+        "Баннер на ya.ru — брендинг на главной Яндекса",
+        "Overlay — мобильный формат поверх страницы (бета)",
+        "Панорама — охватный формат из видео и баннеров"
+      ]
+    }, [
+      X("Панорама", {
+        n: "ecom food beauty med edu auto re travel build",
+        d: "Охватный формат: видео и баннеры в одной кампании без повторных показов одному человеку на разных устройствах. Открыт малому и среднему бизнесу без ограничения минимального бюджета."
+      }),
+      X("Видео и непропускаемое видео", { n: "ecom auto re fin travel edu med", d: "Ролики 5–60 секунд и непропускаемые до 15 секунд." }),
+      X("Баннер на ya.ru", { n: "ecom auto re fin travel", d: "Брендинг на главной странице Яндекса." }),
+      X("Overlay (бета)", { n: ALL, d: "Новый формат для мобильных сайтов. Десктопная версия запланирована на 2027 год." })
+    ]),
+    X("Товарная реклама", {
+      n: "ecom auto b2bp build",
+      d: "Объявления формируются из фида товаров или сайта.",
+      tools: [
+        "Товарные кампании — объявления из фида или сайта",
+        "Товарная галерея — карточки товаров в выдаче",
+        "Динамические креативы — карточки под пользователя",
+        "Каталоги в ЕПК — объединение с товарными объявлениями"
+      ]
+    }),
+    X("Видео и Connected TV", {
+      n: "ecom auto re fin travel edu",
+      d: "Видео для запуска продукта и узнаваемости.",
+      tools: [
+        "Видеообъявления в Видеосети — сайты, приложения, сервисы",
+        "Connected TV — онлайн-кинотеатры, телеканалы, Яндекс ТВ",
+        "Видеобаннеры — автозапуск в зоне видимости"
+      ]
+    }),
+    X("Цифровая наружка через Директ", {
+      n: "ecom food beauty auto re",
+      d: "Уличные цифровые экраны для охвата пешеходов и водителей.",
+      tools: [
+        "Экраны в витринах и ПВЗ — уличные цифровые экраны",
+        "Крыши такси — цифровые конструкции",
+        "Пиллары — цифровые стелы в городе"
+      ]
+    }),
+    X("Реклама в каналах Telegram", {
+      p: "g", m: "переходный период", n: "ecom edu exp b2bs fin travel",
+      d: "Автоподбор каналов в Директе. Действует тот же переходный период до 31 декабря 2026, что и у Telegram.",
+      tools: [
+        "Автоподбор каналов — по тематике, описанию и географии",
+        "Оплата за клики — нативные объявления в каналах"
+      ]
+    }),
+    X("Реклама в каналах MAX", {
+      n: "ecom edu exp b2bs fin travel food beauty",
+      d: "Формат «Рекламное объявление в MAX» доступен с 7 октября 2026, пока в бета-версии.",
+      tools: [
+        "Автоподбор каналов — по тематике, описанию и географии",
+        "Оплата за клики — нативные объявления в каналах"
+      ]
+    }),
+    X("Лендинги Директа", {
+      n: LOCAL + " ecom",
+      d: "ИИ-конструктор лендингов с синхронизацией с Яндекс Бизнесом.",
+      tools: [
+        "ИИ-конструктор — подбор изображений и блоков под нишу",
+        "Резервная страница — для слабого интернета",
+        "Уникальные ссылки и CTA — в любом блоке",
+        "Экспорт заявок в CRM — через API"
+      ]
+    }),
+    X("Аудитории и ретаргетинг", {
+      d: "Возврат посетителей и расширение охвата.",
+      tools: [
+        "Ретаргетинг — сегменты Метрики",
+        "Похожие аудитории — по клиентской базе",
+        "Корректировки — гео, пол, возраст"
+      ]
+    })
+  ]),
+
+  X("Карты и геосервисы", {
+    n: "food beauty med edu exp build auto travel ecom",
+    d: "Клиент ищет рядом и выбирает по рейтингу и отзывам.",
+    nt: {
+      food: "Главный канал: фото, меню, часы работы, рейтинг, ответы на каждый отзыв.",
+      beauty: "Онлайн-запись из карточки, фото работ, акции.",
+      med: "Рейтинг и отзывы решают при выборе клиники.",
+      auto: "Построение маршрута и «рядом со мной»: автосервисы, шиномонтаж, мойки.",
+      build: "Офис или шоу-рум на карте повышает доверие даже у выездных услуг.",
+      travel: "Рейтинг и фото важнее текста, бронирование прямо из карточки."
+    }
+  }, [
+    X("Яндекс Карты и Яндекс Бизнес", {
+      d: "Бесплатная карточка плюс платные форматы внутри экосистемы Яндекса.",
+      tools: [
+        "Карточка организации — оформление, фото, услуги, часы работы",
+        "Приоритетное размещение — подписка Яндекс Бизнеса",
+        "Медийка на Картах — баннеры на десктопе, в Навигаторе, по маршруту, в приложении Метро",
+        "Брендирование — пины на маршруте, билборды в Навигаторе",
+        "Рекомендация заехать — показ в Навигаторе по маршруту",
+        "Директ на Картах — объявления Директа на карте",
+        "Статистика — запросы, конкуренты, переходы"
+      ]
+    }, [
+      X("Карточка и отзывы", { n: LOCAL + " ecom", d: "Фото, услуги, часы работы, ответы на отзывы." }),
+      X("Приоритетное размещение", { n: LOCAL, d: "Подписка Яндекс Бизнеса: выше в выдаче и расширенная карточка." }),
+      X("Пины и брендирование", { n: "food beauty auto ecom travel", d: "Пины на маршруте, билборды в Навигаторе, рекомендация заехать." }),
+      X("Медийка в Картах и Навигаторе", { n: "auto food beauty ecom travel re", d: "Баннеры на десктопе Карт, в Навигаторе, по маршруту и в приложении Метро." })
+    ]),
+    X("2ГИС", {
+      d: "Справочник и карта с сильными позициями в региональных городах.",
+      tools: [
+        "Геоконтекст — объявление в выдаче, микросайт, витрина товаров",
+        "Приоритет в рубрике — повышение в списке компаний",
+        "Медийка — баннеры в карточках, логотип на карте, баннер-небоскрёб",
+        "Навигатор — баннер при остановке, логотип, билборд",
+        "Контекстно-медийная — баннер в выдаче, реклама у партнёров, CTA-кнопки",
+        "Пакеты — готовые наборы вроде «Лайт»"
+      ]
+    }, [
+      X("Геоконтекст 2ГИС", { n: LOCAL + " ecom", d: "Объявление в выдаче, комментарий в карточке, микросайт, витрина товаров, приоритет в рубрике." }),
+      X("Медийка 2ГИС", { n: "food beauty auto ecom travel re", d: "Баннеры в карточках, логотип на карте, баннер-небоскрёб." }),
+      X("Навигатор 2ГИС", { n: "auto food beauty ecom", d: "Баннер при остановке, логотип, билборд и реклама в пешей навигации." }),
+      X("Пакеты 2ГИС", { n: LOCAL, d: "Готовые наборы вроде «Лайт»: повышение в выдаче, кнопка в карточке, метка на карте." })
+    ]),
+    X("Отзывы и репутация", {
+      n: LOCAL + " ecom re",
+      d: "Рейтинг влияет на выбор в картах и агрегаторах.",
+      tools: [
+        "Сбор отзывов — QR на кассе, SMS после визита",
+        "Ответы на отзывы — особенно на негативные",
+        "Мониторинг карточек — на геосервисах и отзовиках",
+        "Отраслевые каталоги отзывов — например, ПроДокторов"
+      ]
+    })
+  ]),
+
+  X("SEO и контент", {
+    n: ALL,
+    d: "Долгий канал: результат через несколько месяцев. Поиск всё чаще отвечает нейросетью.",
+    nt: {
+      re: "Страницы ЖК и районов под запросы «купить квартиру в…».",
+      med: "Страницы услуг и врачей с авторством и отзывами.",
+      b2bs: "Статьи, кейсы и сравнения под запросы на этапе выбора подрядчика.",
+      ecom: "Категории и карточки с уникальными описаниями и структурированными данными."
+    }
+  }, [
+    X("SEO сайта", {
+      d: "Органический поиск Яндекса.",
+      tools: [
+        "Технический аудит — скорость, индексация",
+        "Семантика и посадочные — под коммерческие запросы",
+        "Локальное SEO — гео-страницы, связка с Картами",
+        "Коммерческие факторы — цены, отзывы, наличие, доставка"
+      ]
+    }),
+    X("GEO: нейропоиск", {
+      d: "SEO постепенно превращается в AIO/GEO: ключевым становится присутствие сайта в нейро-ответах.",
+      tools: [
+        "Структурированные данные — разметка и FAQ",
+        "Экспертные материалы — авторство и дата",
+        "Мониторинг ответов ИИ — упоминания бренда"
+      ]
+    }),
+    X("Дзен", {
+      n: "edu exp b2bs re med fin build",
+      d: "Платформа в экосистеме VK. Важна реакция аудитории, а не число подписчиков.",
+      tools: [
+        "Статьи — лонгриды",
+        "Видео — ролики и досмотры",
+        "ПромоСтраницы — рекламный формат для бизнеса",
+        "Нативные интеграции — у каналов"
+      ]
+    }),
+    X("Отраслевые медиа", {
+      n: "b2bs b2bp fin exp edu",
+      d: "Публикации для профессиональной аудитории.",
+      tools: [
+        "vc.ru — предпринимательская аудитория",
+        "Хабр — IT-аудитория",
+        "Т-Бизнес, блоги компаний — публикации от имени компании"
+      ]
+    })
+  ]),
+
+  X("ВКонтакте", {
+    n: B2C + " b2bs",
+    d: "Сообщества, таргет, видео и рассылки. Реклама VK объединяет ВКонтакте, Одноклассники и рекламную сеть.",
+    nt: {
+      edu: "Сообщество, воронка в Senler, таргет на лид-формы.",
+      beauty: "Таргет по гео, клипы с работами, запись из сообщества.",
+      re: "Таргет по гео и интересам, лид-формы для консультации.",
+      ecom: "VK Маркет, карусели в клипах, ретаргетинг."
+    }
+  }, [
+    X("Сообщество и контент", {
+      d: "Основа присутствия бренда во ВКонтакте.",
+      tools: [
+        "Посты и подборки — основной контент",
+        "Клипы — короткое видео сообщества",
+        "Рассылки сообщества — сообщения подписчикам",
+        "Senler — воронки и чат-боты",
+        "VK Маркет — каталог товаров и услуг",
+        "Мини-приложения — запись, заказ, калькуляторы"
+      ]
+    }),
+    X("VK Реклама", {
+      d: "Рекламный кабинет VK.",
+      tools: [
+        "Таргет — на сайт, сообщество, приложение",
+        "Лид-формы — сбор заявок внутри ВКонтакте",
+        "«Визитки» — карточка компании без сайта",
+        "Ретаргетинг — возврат посетителей",
+        "Похожие аудитории — по базе клиентов",
+        "Офлайн-конверсии — данные о продаже из CRM",
+        "Креативная студия — ИИ-генерация изображений",
+        "Продвижение каналов MAX — объект «Каналы»"
+      ]
+    }, [
+      X("Лид-формы и «Визитки»", { n: LOCAL + " re ecom", d: "Сбор заявок внутри ВКонтакте без перехода на сайт." }),
+      X("Офлайн-конверсии из CRM", { n: BIGTICKET, d: "Данные о продаже из CRM попадают в модели платформы." }),
+      X("Похожие аудитории", { n: ALL, d: "Расширение охвата по базе клиентов." }),
+      X("ИИ-креативы", { n: ALL, d: "Креативная студия генерирует и адаптирует изображения под форматы." })
+    ]),
+    X("VK Клипы и VK Видео", {
+      n: "ecom beauty food edu travel auto",
+      d: "Короткое видео и охватные форматы.",
+      tools: [
+        "Промо — управляемый охват в клипах",
+        "TopView — первый показ в клипах",
+        "Карусель — несколько слайдов, рекомендуют от пяти",
+        "Клип как креатив сообщества — из медиатеки сообщества"
+      ]
+    }),
+    X("Посевы и блогеры в VK", {
+      n: "ecom beauty edu exp",
+      d: "Реклама через авторов и сообщества.",
+      tools: [
+        "Посты в сообществах — закуп рекламных постов",
+        "Авторы VK Видео и клипов — интеграции"
+      ]
+    })
+  ]),
+
+  X("MAX", {
+    n: "ecom food beauty med edu exp re build auto travel",
+    d: "Мессенджер с аудиторией более 85 млн человек в день по данным MAX. Бизнес-аккаунты открыты для компаний с весны 2026."
+  }, [
+    X("Канал и контент", {
+      d: "Каналы и органический охват.",
+      tools: [
+        "Каналы — публичные и приватные",
+        "Реакции — управление реакциями к постам",
+        "Отложенные публикации — запланированные посты",
+        "Счётчик просмотров — охват постов"
+      ]
+    }),
+    X("Бизнес-аккаунт", {
+      d: "Инструменты автоматизации для предпринимателей.",
+      tools: [
+        "Чат-боты — заказы и уведомления",
+        "Мини-приложения — витрина, запись, калькуляторы",
+        "Интеграция с CRM — заявки в воронку",
+        "Верификация бизнеса — подтверждённый профиль"
+      ]
+    }),
+    X("MAX Ads", {
+      n: "ecom food beauty edu exp re",
+      d: "Реклама каналов через внешние кабинеты.",
+      tools: [
+        "VK Реклама — продвижение каналов",
+        "Яндекс Директ — «Рекламное объявление в MAX», бета"
+      ]
+    }),
+    X("Посевы и биржи", {
+      n: ALL,
+      d: "Покупка рекламы у владельцев каналов.",
+      tools: [
+        "Рекламный пост — у владельца канала",
+        "Биржи рекламы — каталоги каналов с фильтрами"
+      ]
+    }),
+    X("Перегон аудитории", {
+      n: ALL,
+      d: "Перенос подписчиков из других каналов.",
+      tools: [
+        "Посты и рассылки — призыв подписаться",
+        "QR и ссылки — на сайте, в чеках, на упаковке",
+        "Реклама из других каналов — VK Реклама, Директ"
+      ]
+    })
+  ]),
+
+  X("Телеграм", {
+    p: "g", m: "переходный период", n: "ecom edu exp b2bs b2bp fin travel re",
+    d: "Роскомнадзор замедляет Telegram с 10 февраля 2026. ФАС считает рекламу там нарушением, но до 31 декабря 2026 штрафы применять не будут."
+  }, [
+    X("Telegram Ads", {
+      d: "Официальная рекламная платформа Telegram.",
+      tools: [
+        "Объявления в каналах — нативные рекламные посты",
+        "Поиск Telegram — реклама в поисковой выдаче",
+        "Автоподбор через Директ — показ в каналах из Директа"
+      ]
+    }),
+    X("Посевы и закуп рекламы", {
+      d: "Покупка размещений у владельцев каналов.",
+      tools: [
+        "Закуп постов — у владельцев каналов",
+        "Биржи — например, Telega.in",
+        "Нативные интеграции — пост от имени канала"
+      ]
+    }),
+    X("Канал и контент", {
+      d: "Собственный канал бренда.",
+      tools: [
+        "Оформленный профиль — закреп и оффер",
+        "Контент — посты и видео",
+        "Сторис — короткие обновления",
+        "Розыгрыши — привлечение подписчиков",
+        "Папки — подборки каналов"
+      ]
+    }),
+    X("Боты и Mini Apps", {
+      d: "Автоматизация заявок и продаж.",
+      tools: [
+        "Бот-квалификатор — заявки и запись",
+        "Mini Apps — витрина и калькулятор",
+        "CRM-интеграция — заявки в воронку"
+      ]
+    }),
+    X("Чаты и комьюнити", {
+      d: "Живое общение с клиентами.",
+      tools: [
+        "Чат клиентов — поддержка и обсуждения",
+        "Закрытые клубы — платное или закрытое сообщество"
+      ]
+    }),
+    X("Рассылки в Telegram", {
+      p: "g", m: "нужно согласие",
+      d: "Рассылки через ботов.",
+      tools: ["Рассылка подписчикам бота — акции и новости"]
+    }),
+    X("Амбассадоры", {
+      d: "Продвижение через лояльных клиентов.",
+      tools: [
+        "Лояльные клиенты — промокод",
+        "Реферальные механики — вознаграждение за приведённых друзей"
+      ]
+    })
+  ]),
+
+  X("Блогеры и видео", {
+    n: "ecom beauty food edu exp travel auto re",
+    d: "Видеоплатформы и интеграции у авторов."
+  }, [
+    X("YouTube", {
+      p: "g", m: "переходный период",
+      d: "Замедлен, но не заблокирован. Действует тот же переходный период до 31 декабря 2026, что и у Telegram.",
+      tools: [
+        "Обучающие видео — длинный формат",
+        "Интеграции у авторов — рекламные вставки",
+        "Shorts — короткие вертикальные видео"
+      ]
+    }),
+    X("Интеграции у блогеров", {
+      d: "Размещение у авторов разного масштаба.",
+      tools: [
+        "Нано-блогеры — малый охват, высокое доверие",
+        "Микроблогеры — тематическая аудитория",
+        "Макроблогеры — массовый охват",
+        "Биржи интеграций — каталоги авторов",
+        "Промокоды и уникальные ссылки — замер результата"
+      ]
+    }),
+    X("Яндекс ПроБлогер", {
+      n: ALL,
+      d: "Сервис управления монетизацией авторов: Telegram, MAX, VK, Rutube, YouTube и Дзен.",
+      tools: [
+        "Единый кабинет автора — монетизация в разных площадках",
+        "Подключение авторов — от 1 000 подписчиков"
+      ]
+    })
+  ]),
+
+  X("Instagram", {
+    n: "", p: "x", m: "запрещено в РФ", c: true,
+    d: "Meta признана экстремистской организацией и запрещена в РФ."
+  }, ["сторис", "рилс", "нативка у блогеров", "карусели", "рассылка в Директ"]),
+
+  X("Агрегаторы и площадки", {
+    n: ALL,
+    d: "Если клиент ищет прямо на площадке, карточка там важнее сайта. У каждой ниши свои площадки.",
+    tools: [
+      "Оформление — фото, описание, УТП",
+      "Продвижение внутри агрегатора — ставки и тарифы",
+      "Работа с карточками — отзывы и ответы"
+    ]
+  }, [
+    X("Недвижимость: порталы", {
+      n: "re build",
+      d: "У застройщика и агентства обычно несколько порталов сразу, плюс региональные.",
+      nt: {
+        re: "Распределяйте бюджет по площадкам по цене сделки, а не по числу звонков. Рассылки по избранному и по интересам работают на каждой площадке."
+      }
+    }, [
+      X("ЦИАН", {
+        n: "re",
+        d: "Аудитория целенаправленно ищет новостройки.",
+        tools: [
+          "Тарифы PRO+ и Premium — приоритет в выдаче",
+          "Аукцион ставок — позиция в каталоге",
+          "Рассылки — пользователям, смотревшим ЖК или конкурентов"
+        ]
+      }),
+      X("Авито Недвижимость", {
+        n: "re",
+        d: "Массовый поток обращений и сделок.",
+        tools: [
+          "Тариф «Промо Максимум» — видео и раздел особенностей ЖК",
+          "Рассылки по избранному — из кабинета",
+          "Ставки — продвижение карточки ЖК"
+        ]
+      }),
+      X("Яндекс Недвижимость", {
+        n: "re",
+        d: "Заметный источник лидов, особенно в регионах.",
+        tools: [
+          "Аукцион ставок — позиция в каталоге ЖК",
+          "Рассылки — push, e-mail, SMS через менеджера площадки",
+          "Карточка ЖК — описание и галерея"
+        ]
+      }),
+      X("ДомКлик", {
+        n: "re fin",
+        d: "Площадка Сбера с ипотечной воронкой.",
+        tools: [
+          "Объявления — продажа и аренда",
+          "Ипотечные заявки — оформление ипотеки на площадке"
+        ]
+      }),
+      X("Региональные порталы", {
+        n: "re",
+        d: "Свои сайты в крупных городах и локальные каталоги новостроек.",
+        tools: [
+          "Региональные каталоги — объявления и ЖК города",
+          "Платные размещения — приоритет и баннеры"
+        ]
+      }),
+      X("Свой сайт и каналы застройщика", {
+        n: "re",
+        d: "Прямой доступ к клиентам без комиссии площадки.",
+        tools: [
+          "Сайт ЖК — каталог квартир и заявки",
+          "Каналы в мессенджерах — новости стройки и акции",
+          "Рассылки по базе — подбор и акции"
+        ]
+      })
+    ]),
+    X("Маркетплейсы товаров", {
+      n: "ecom b2bp",
+      d: "Реклама внутри площадки: поиск, карточки, баннеры.",
+      tools: [
+        "Внутренняя реклама — поиск и баннеры в кабинете продавца",
+        "Чаты с покупателями — на Яндекс Маркете",
+        "Сравнение цен — Яндекс KIT, подстройка под Ozon"
+      ]
+    }),
+    X("Услуги и мастера", {
+      n: "build beauty auto exp edu",
+      d: "Заявки по откликам и подписке.",
+      tools: [
+        "Профи.ру — заявки по откликам",
+        "Яндекс Услуги — заказы в экосистеме Яндекса",
+        "Авито Услуги — объявления мастеров"
+      ]
+    }),
+    X("Медицина и красота", {
+      n: "med beauty",
+      d: "Каталоги клиник и врачей, онлайн-запись.",
+      tools: [
+        "ПроДокторов — каталог врачей и клиник",
+        "СберЗдоровье — онлайн-запись"
+      ]
+    }),
+    X("Общепит и доставка", {
+      n: "food",
+      d: "Агрегаторы доставки и заведений.",
+      tools: [
+        "Яндекс Еда — доставка из заведений",
+        "Карточка заведения — меню и фото",
+        "Акции внутри приложения — промо для клиентов"
+      ]
+    }),
+    X("Авто-площадки", {
+      n: "auto",
+      d: "Объявления и продвижение для дилеров и частников.",
+      tools: [
+        "Авито Авто — объявления и продвижение",
+        "Авто.ру — каталог автомобилей",
+        "Дром — каталог и запчасти"
+      ]
+    }),
+    X("Путешествия", {
+      n: "travel",
+      d: "Карточка объекта, цены и отзывы.",
+      tools: [
+        "Островок — бронирование отелей",
+        "Яндекс Путешествия — отели и билеты",
+        "Суточно.ру — посуточная аренда"
+      ]
+    }),
+    X("Финансы", {
+      n: "fin",
+      d: "Каталоги и сравнение финансовых продуктов.",
+      tools: [
+        "Сравни.ру — сравнение финансовых продуктов",
+        "Банки.ру — каталог банков и отзывы"
+      ]
+    }),
+    X("B2B-площадки", {
+      n: "b2bs b2bp",
+      d: "Закупки, тендеры и отраслевые каталоги.",
+      tools: [
+        "B2B-Center — закупки и тендеры",
+        "Контур.Закупки — тендерная аналитика",
+        "Отраслевые каталоги — поставщики и подрядчики"
+      ]
+    }),
+    X("Образование и эксперты", {
+      n: "edu exp",
+      d: "Площадки для репетиторов, школ и частных специалистов.",
+      tools: [
+        "Профи.ру — репетиторы и специалисты",
+        "Авито Услуги — объявления специалистов",
+        "Воркзилла — фриланс и разовые проекты"
+      ]
+    })
+  ])
+];
+
+const LEFT = [
+  X("Авито", {
+    n: "ecom auto re build beauty exp edu travel b2bp",
+    d: "Сильный канал для аренды, услуг и товаров. Кабинет рекламы доступен ИП и юрлицам.",
+    nt: {
+      auto: "Объявления и платное продвижение для дилеров, запчастей и сервисов.",
+      build: "Услуги и товары: отзывы и рейтинг решают при выборе мастера.",
+      re: "Аренда и продажа, платное продвижение и рассылки.",
+      edu: "Репетиторы и частные педагоги, локальные курсы."
+    }
+  }, [
+    X("Размещение и тарифы", {
+      d: "Базовый уровень присутствия на площадке.",
+      tools: [
+        "Тарифы размещения — платные и бесплатные объявления",
+        "Продвижение — подъём в выдаче",
+        "Магазин и Авито Про — профиль бизнеса",
+        "Оформление и отзывы — карточка и рейтинг"
+      ]
+    }),
+    X("Авито Реклама", {
+      d: "Рекламный кабинет Авито.",
+      tools: [
+        "Баннеры и видео — переход внутрь Авито или на внешний сайт",
+        "Нативный баннер — блок в ленте, похожий на объявление",
+        "Таргетинг — гео, пол, возраст, интересы",
+        "Кастомные сегменты — интерес к конкретной модели",
+        "Look-alike — по базе телефонов",
+        "Таргетинг по доходу — сегмент по уровню дохода"
+      ],
+      nt: {
+        auto: "Комфортная ниша: товар с понятным поисковым запросом.",
+        ecom: "Электроника, мебель и другие товары с понятным запросом.",
+        re: "Подходит для недвижимости и аренды.",
+        build: "Локальные услуги: комфортно.",
+        b2bs: "Сложно: B2B с длинным циклом без запроса.",
+        exp: "Сложно: экспертные услуги с широким гео."
+      }
+    }, [
+      X("Баннеры и видео", { n: "auto ecom re build edu", d: "Переход внутрь Авито или на сайт, в приложение или мессенджер-канал." }),
+      X("Таргетинг и аудитории", { n: "auto ecom re build edu", d: "Гео до района и метро, интересы, кастомные сегменты, look-alike, таргетинг по доходу." }),
+      X("Внешняя сеть Авито (план)", { n: ALL, d: "Анонсирована на четвёртый квартал 2026." })
+    ]),
+    X("Авито Ads: на сайт, в TG, в MAX", {
+      n: "auto ecom re build edu travel",
+      d: "Реклама Авито ведёт на внешние площадки.",
+      tools: [
+        "Переход на сайт — на страницу компании",
+        "Переход в Telegram — в канал",
+        "Переход в MAX — в канал"
+      ]
+    }),
+    X("Аналитика Авито", {
+      d: "Статистика размещений и продвижения.",
+      tools: [
+        "Статистика размещений — показы и контакты",
+        "Статистика продвижения — результаты платных услуг",
+        "Кабинеты агрегаторов — например, eLama"
+      ]
+    })
+  ]),
+
+  X("Офлайн-медиа", {
+    n: "ecom food beauty med edu auto re build travel fin",
+    d: "Узнаваемость и точечные кампании рядом с клиентом."
+  }, [
+    X("Наружная реклама", {
+      n: "re auto food beauty ecom build travel",
+      d: "Классическая наружка.",
+      tools: [
+        "Билборды 3×6 — щиты вдоль дорог",
+        "Суперсайты — крупные форматы",
+        "Сити-форматы — остановки, ситиборды, пиллары",
+        "Медиафасады — цифровые экраны на зданиях",
+        "Перетяжки — растяжки над дорогой"
+      ]
+    }),
+    X("Цифровая наружка DOOH", {
+      n: "ecom food beauty auto re travel",
+      d: "Самый быстрорастущий сегмент наружной рекламы.",
+      tools: [
+        "Цифровые билборды — экраны вдоль дорог",
+        "Цифровые сити-форматы — экраны на остановках и в пиллярах",
+        "Креативы в реальном времени — смена роликов на лету",
+        "Таргет по времени, погоде и трафику — условия показа"
+      ]
+    }),
+    X("Реклама на транспорте", {
+      n: "ecom food beauty edu auto re travel",
+      d: "Реклама движется по городу и охватывает пешеходов и водителей.",
+      tools: [
+        "Брендирование транспорта — автобусы, трамваи, троллейбусы",
+        "Реклама в салоне — стикеры и мониторы",
+        "Метро — вагоны, станции, экраны",
+        "Такси — брендирование и цифровые крыши",
+        "Остановки — павильоны",
+        "Вокзалы и аэропорты — реклама в залах и на перронах"
+      ]
+    }),
+    X("Indoor и ТЦ", {
+      n: "ecom food beauty med edu travel",
+      d: "Реклама в помещениях, где клиент ждёт или покупает.",
+      tools: [
+        "ТЦ и БЦ — экраны и стойки",
+        "Лифты — реклама в жилых домах",
+        "ПВЗ и витрины — экраны, в том числе через Директ",
+        "Фитнес-клубы и школы — экраны и стенды",
+        "Поликлиники — реклама в ожидании"
+      ]
+    }),
+    X("Радио", {
+      n: "auto food beauty ecom med re edu build travel",
+      d: "Недорогой по сравнению с ТВ охват, хорошо работает на водителей.",
+      tools: [
+        "Рекламные ролики — 15–30 секунд в ротации",
+        "Спонсорство — программы и рубрики",
+        "Джинглы и анонсы — акции и события",
+        "Интеграции ведущих — рекомендация в эфире",
+        "Региональные станции — для локального бизнеса"
+      ],
+      nt: {
+        auto: "Классический канал для дилеров и сервисов: слушатели в машине.",
+        food: "Акции и открытия: короткие ролики по времени обеда и ужина.",
+        re: "Узнаваемость застройщика и анонсы мероприятий."
+      }
+    }),
+    X("ТВ и Smart TV", {
+      n: "ecom auto re fin travel edu med food",
+      d: "Линейное ТВ даёт массовый охват. Connected TV и Smart TV — цифровая альтернатива с таргетингом.",
+      tools: [
+        "Федеральные каналы — массовый охват",
+        "Региональные каналы — для локального бизнеса",
+        "Спонсорство программ — вставки и заставки",
+        "Product placement — интеграция в контент",
+        "Connected TV — онлайн-кинотеатры, Яндекс ТВ",
+        "Smart TV — реклама на устройстве"
+      ]
+    }),
+    X("Кинотеатры", {
+      n: "food beauty ecom auto travel",
+      d: "Реклама перед сеансом и в зоне кинотеатра.",
+      tools: [
+        "Ролики перед сеансом — показ в зале",
+        "Фойе — стойки и экраны",
+        "Брендирование зала — спецпроекты"
+      ]
+    }),
+    X("Печать и распространение", {
+      n: "food beauty med edu build re",
+      d: "Бумажные носители и адресная доставка.",
+      tools: [
+        "Листовки и буклеты — раздача и подъезды",
+        "Газеты и журналы — размещение в изданиях",
+        "Почтовые рассылки — адресная доставка",
+        "Справочники и каталоги — отраслевые издания"
+      ]
+    }),
+    X("Промо и ивенты на точке", {
+      n: "ecom food beauty",
+      d: "Живой контакт с клиентом на точке или в мероприятии.",
+      tools: [
+        "Промоутеры — раздача и консультации",
+        "Семплинг и дегустации — пробные образцы",
+        "Тейбл-тенты — рекламные конструкции на столах",
+        "POS-материалы — стойки и ценники"
+      ]
+    }),
+    X("Вывески и точка продаж", {
+      n: "food beauty med build auto",
+      d: "Оформление входной группы и точки.",
+      tools: [
+        "Вывески и световые короба — входная группа",
+        "Штендеры — выносные конструкции",
+        "Витрины и входные группы — оформление"
+      ]
+    })
+  ]),
+
+  X("Работа с базой", {
+    n: ALL,
+    d: "Самый дешёвый канал повторных продаж."
+  }, [
+    X("Email и SMS", {
+      d: "Классические рассылки.",
+      tools: [
+        "Сервисы рассылок — например, Unisender, SendPulse",
+        "Триггерные цепочки — брошенная корзина, напоминания",
+        "Сегментация — по истории покупок",
+        "Реактивация — возврат «спящих» клиентов"
+      ]
+    }),
+    X("Мессенджер-рассылки", {
+      p: "g", m: "нужно согласие",
+      d: "Рассылки через ботов.",
+      tools: [
+        "Боты в MAX — уведомления и рассылки",
+        "Боты в Telegram — рассылки подписчикам",
+        "Статусы заказов — напоминания и акции"
+      ]
+    }),
+    X("Автообзвон", {
+      p: "g", m: "нужно согласие",
+      d: "Звонки по базе без участия менеджера.",
+      tools: [
+        "Голосовой робот — обзвон базы",
+        "Подтверждение записи — напоминание клиентам"
+      ]
+    }),
+    X("Менеджер и CRM", {
+      n: BIGTICKET + " beauty",
+      d: "Личный контакт с клиентом.",
+      tools: [
+        "Личная переписка и звонки — работа менеджера",
+        "Скрипты и теги в CRM — стандарты общения",
+        "Допродажи — сопровождение сделки"
+      ]
+    }),
+    X("Лояльность", {
+      n: "ecom food beauty med edu auto travel",
+      d: "Удержание и повторные продажи.",
+      tools: [
+        "Бонусы и программа лояльности — накопление и скидки",
+        "Реферальные механики — вознаграждение за приведённых клиентов",
+        "Подписки и абонементы — регулярные платежи",
+        "NPS и опросы — обратная связь"
+      ]
+    })
+  ]),
+
+  X("Партнёрства", {
+    n: "food beauty med edu exp b2bs b2bp re build auto fin travel",
+    d: "Вариантов очень много. Условия обмена фиксируйте договором.",
+    nt: {
+      re: "Партнёрская сеть агентов и риелторов: вознаграждение за клиента.",
+      travel: "Агентские сети и отели-партнёры.",
+      fin: "Партнёрские программы банков и брокеров."
+    }
+  }, [
+    X("Коллаборации и кросс-промо", {
+      d: "Совместные проекты с брендами из смежных ниш.",
+      tools: [
+        "Совместные акции — общие предложения",
+        "Взаимные рассылки и посты — обмен аудиторией",
+        "Подарки клиентам партнёра — бонусы"
+      ]
+    }),
+    X("Обмен заявками", {
+      d: "Партнёры передают друг другу лиды.",
+      tools: [
+        "Передача лидов — между партнёрами",
+        "Комиссия или бартер — условия обмена"
+      ]
+    }),
+    X("Обмен сертификатами", {
+      n: "food beauty med edu travel ecom",
+      d: "Взаимные подарочные форматы.",
+      tools: [
+        "Подарочные сертификаты — для клиентов партнёра",
+        "Абонементы — пакеты услуг",
+        "Скидка клиентам партнёра — взаимный бонус"
+      ]
+    }),
+    X("Партнёрская программа", {
+      n: "ecom edu re b2bs fin travel",
+      d: "Вознаграждение за привлечённых клиентов.",
+      tools: [
+        "Реферальная программа — вознаграждение клиентам",
+        "CPA-сети — оплата за действие",
+        "Агентская комиссия — вознаграждение агентам"
+      ]
+    }),
+    X("Корпоративные клиенты", {
+      n: "beauty med edu b2bs fin travel",
+      d: "Продажи компаниям и сообществам.",
+      tools: [
+        "Корпоративные тарифы — пакеты для компаний",
+        "HR-бенефиты — программы для сотрудников",
+        "Партнёрства с УК и ТСЖ — для локальных услуг"
+      ]
+    })
+  ]),
+
+  X("Личный бренд", {
+    n: "exp b2bs b2bp re med edu fin build",
+    d: "Множество каналов, часть пересекается с остальной картой.",
+    nt: {
+      exp: "Основной канал продаж: эксперт в соцсетях, подкасты, выступления.",
+      med: "Врач с экспертным каналом привлекает пациентов клиники.",
+      re: "Эксперт по рынку недвижимости собирает доверие и заявки."
+    }
+  }, [
+    X("Эксперт в соцсетях", {
+      d: "Регулярный контент от лица специалиста.",
+      tools: [
+        "Канал в MAX и Telegram — экспертный блог",
+        "ВКонтакте — сообщество и клипы",
+        "Дзен — статьи и видео",
+        "Прямые эфиры и разборы — живое общение"
+      ]
+    }),
+    X("Колонки и подкасты", {
+      d: "Публикации и аудио о профессии.",
+      tools: [
+        "Колонки в отраслевых медиа — экспертные статьи",
+        "Подкасты — аудио о профессии",
+        "Интервью — участие в чужих проектах"
+      ]
+    }),
+    X("Выступления", {
+      d: "Публичные выступления эксперта.",
+      tools: [
+        "Конференции — доклады",
+        "Вебинары — онлайн-выступления",
+        "Мастер-классы — практические занятия"
+      ]
+    }),
+    X("Рассылка основателя", {
+      d: "Прямая связь с подписчиками.",
+      tools: [
+        "Личная рассылка по базе — авторские письма",
+        "Закрытый клуб — сообщество для платных участников"
+      ]
+    })
+  ]),
+
+  X("Event", {
+    n: "b2bs b2bp re edu exp med fin travel build",
+    d: "Своё событие или чужая площадка."
+  }, [
+    X("Организация", {
+      d: "Свои мероприятия.",
+      tools: [
+        "Вебинары и марафоны — онлайн-форматы",
+        "Мастер-классы и дни открытых дверей — офлайн-встречи",
+        "Конференции и клубы — крупные события"
+      ]
+    }),
+    X("Участие", {
+      d: "Чужие площадки.",
+      tools: [
+        "Выставки и форумы — стенды и доклады",
+        "Отраслевые конференции — участие и спонсорство"
+      ]
+    }),
+    X("Партнёрство", {
+      d: "Совместные мероприятия.",
+      tools: [
+        "Со-организация мероприятий — общие события",
+        "Спонсорство и стенды — размещение на чужих событиях"
+      ]
+    }),
+    X("Нетворкинги", {
+      d: "Знакомства и связи.",
+      tools: [
+        "Бизнес-клубы — членство и встречи",
+        "Чаты и комьюнити предпринимателей — онлайн-сообщества"
+      ]
+    })
+  ]),
+
+  X("PR и репутация", {
+    n: ALL,
+    d: "Доверие к бренду: СМИ, рейтинги, отзывы."
+  }, [
+    X("СМИ и экспертные комментарии", {
+      d: "Публикации в медиа.",
+      tools: [
+        "Пресс-релизы и комментарии — для отраслевых СМИ",
+        "Нативные материалы — спецпроекты в медиа"
+      ]
+    }),
+    X("Рейтинги и премии", {
+      n: "b2bs b2bp med edu fin build re",
+      d: "Подтверждение статуса бренда.",
+      tools: [
+        "Отраслевые рейтинги — участие и позиции",
+        "Премии и награды — подтверждение экспертности"
+      ]
+    }),
+    X("Работа с негативом", {
+      d: "Управление репутацией.",
+      tools: [
+        "Мониторинг упоминаний — поиск отзывов и публикаций",
+        "Ответы на отзывы и претензии — публичная реакция",
+        "Правила публичных ответов — единый стиль"
+      ]
+    })
+  ]),
+
+  X("Серые методы", {
+    n: ALL,
+    d: "Часть методов законна только при соблюдении условий. Законная альтернатива указана у каждого."
+  }, [
+    X("Вывод в топ Telegram", { p: "g", m: "правила площадки", d: "Покупка позиций нарушает правила площадок. Законная альтернатива: нативная интеграция с договором." }),
+    X("Перехват лидов с сайтов конкурентов", { p: "x", m: "нарушает закон", d: "Незаконная обработка персональных данных и недобросовестная конкуренция." }),
+    X("Перехват тех, кто заходил на сайт", { p: "g", m: "нужно согласие", d: "Законно через ретаргетинг с пикселями и согласием на cookies. Из чужих баз или скрытым сбором данных — риск." }),
+    X("Звонобот по базам", { p: "x", m: "без согласия — спам", d: "Звонки без согласия считаются спамом. Используйте тёплую базу с согласием." })
+  ]),
+
+  X("Сайт и конверсия", {
+    n: ALL,
+    d: "Превращает трафик из всех каналов в заявки и продажи."
+  }, [
+    X("Сайт и лендинги", {
+      d: "Страницы, на которые приходит трафик.",
+      tools: [
+        "Лендинг — страница под один оффер",
+        "Многостраничный сайт — каталог и описание услуг",
+        "Квиз — опрос с расчётом цены и сбором контакта",
+        "Калькулятор — расчёт стоимости на сайте"
+      ]
+    }),
+    X("Захват заявок", {
+      d: "Способы оставить контакт без лишних шагов.",
+      tools: [
+        "Форма заявки — имя и телефон",
+        "Обратный звонок — перезвон за 30 секунд",
+        "Онлайн-чат — консультант на сайте",
+        "Кнопки мессенджеров — MAX и Telegram",
+        "Чат-бот — первичная квалификация обращения"
+      ]
+    }),
+    X("CRM и воронка", {
+      d: "Путь клиента от заявки до сделки.",
+      tools: [
+        "CRM с этапами сделки — учёт заявок",
+        "Скрипты — стандарты общения",
+        "Автоматизация касаний — триггеры и напоминания",
+        "Напоминания менеджеру — контроль незакрытых заявок"
+      ]
+    }),
+    X("Аналитика", {
+      d: "Оценка каналов по заявкам и продажам.",
+      tools: [
+        "Яндекс Метрика — цели и воронки",
+        "Коллтрекинг — подмена номеров по каналам",
+        "UTM-метки — разметка всех ссылок",
+        "Сквозная аналитика — связь рекламы с продажами"
+      ]
+    }),
+    X("Сервис и продажи", {
+      d: "Скорость ответа и работа с возражениями определяют конверсию в сделку.",
+      tools: [
+        "Скорость ответа — реакция на заявку",
+        "Работа с возражениями — скрипты и обучение",
+        "Контроль качества — оценки и прослушивание звонков"
+      ]
+    })
+  ])
+];
+
+/* ---------- Build tree ---------- */
+function mk(o, parent, depth, side) {
+  if (typeof o === "string") o = X(o);
+  const node = Object.assign({}, o, { parent, depth, side });
+  node.own = o.n !== undefined;
+  node.eff = node.own ? o.n.split(" ").filter(Boolean) : (parent ? parent.eff : KEYS.slice());
+  node.k = (o.k || []).map(c => mk(c, node, depth + 1, side));
+  node.defOpen = depth === 0;
+  node.open = node.defOpen;
+  return node;
+}
+const root = { t: "Каналы маркетинга в РФ 2026", depth: 0, side: 0, eff: KEYS.slice(), open: true, defOpen: true, own: false };
+root.k = [...RIGHT.map(o => mk(o, root, 1, 1)), ...LEFT.map(o => mk(o, root, 1, -1))];
+
+function paint(n, h) { n.hue = h; n.k.forEach(c => paint(c, h)); }
+root.hue = 345;
+root.k.forEach((k, i) => paint(k, (i * 20 + 345) % 360));
+const nodes = [];
+(function walk(n) { nodes.push(n); n.k.forEach(walk); })(root);
+const NHUE = {};
+KEYS.forEach((k, i) => { NHUE[k] = Math.round((i * 360) / KEYS.length + 8) % 360; });
+
+/* ---------- DOM ---------- */
+const canvas = $("canvas"), svg = $("svg"), vp = $("vp"), zoomer = $("zoomer");
+let filter = null, selected = null, scale = 0.85;
+
+nodes.forEach(n => {
+  const el = document.createElement("div");
+  el.className = "node " + (n.depth === 0 ? "root" : n.depth === 1 ? "l1" : "");
+  if (n.p) el.classList.add(n.p);
+  el.style.setProperty("--h", n.hue);
+  el.tabIndex = 0;
+  el.setAttribute("role", n.depth === 0 ? "heading" : "button");
+  const t = document.createElement("span");
+  t.textContent = n.t;
+  el.appendChild(t);
+  if (n.m) {
+    const m = document.createElement("span");
+    m.className = "mk " + (n.p || "g");
+    m.textContent = n.m;
+    el.appendChild(m);
+  }
+  if (n.k.length) {
+    const more = document.createElement("span");
+    more.className = "more";
+    more.hidden = true;
+    el.appendChild(more);
+    n.moreEl = more;
+  }
+  n.el = el;
+  canvas.appendChild(el);
+});
+
+/* ---------- Layout ---------- */
+const ROW = 38, G1 = 46, G = 26, PAD = 40;
+let box = { w: 0, h: 0, rx: 0, ry: 0, ox: 0, oy: 0 };
+
+function measure() {
+  nodes.forEach(n => {
+    const was = n.el.hidden;
+    n.el.hidden = false;
+    n.w = n.el.offsetWidth; n.h = n.el.offsetHeight;
+    n.el.hidden = was;
+  });
+}
+function sh(n) {
+  const kids = n.open ? n.k : [];
+  if (!kids.length) return (n.sh = ROW);
+  let s = 0; kids.forEach(c => (s += sh(c)));
+  return (n.sh = Math.max(ROW, s));
+}
+function place(n, edge, top, side) {
+  n.y = top + n.sh / 2;
+  n.x = side > 0 ? edge : edge - n.w;
+  const kids = n.open ? n.k : [];
+  let tot = 0; kids.forEach(c => (tot += c.sh));
+  let cy = top + (n.sh - tot) / 2;
+  const cedge = side > 0 ? n.x + n.w + G : n.x - G;
+  kids.forEach(c => { place(c, cedge, cy, side); cy += c.sh; });
+}
+function branchRel(n) {
+  if (!filter) return true;
+  return n.eff.includes(filter) || n.k.some(branchRel);
+}
+function isDim(n) { return n !== root && !!filter && !branchRel(n); }
+
+function layout() {
+  const R = root.k.filter(k => k.side > 0), L = root.k.filter(k => k.side < 0);
+  let sumR = 0, sumL = 0;
+  R.forEach(k => (sumR += sh(k))); L.forEach(k => (sumL += sh(k)));
+  root.x = -root.w / 2; root.y = 0;
+  let y = -sumR / 2; R.forEach(k => { place(k, root.w / 2 + G1, y, 1); y += k.sh; });
+  y = -sumL / 2; L.forEach(k => { place(k, -root.w / 2 - G1, y, -1); y += k.sh; });
+
+  const vis = [];
+  (function v(n) { vis.push(n); if (n.open) n.k.forEach(v); })(root);
+  const visSet = new Set(vis);
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  vis.forEach(n => {
+    x0 = Math.min(x0, n.x); x1 = Math.max(x1, n.x + n.w);
+    y0 = Math.min(y0, n.y - n.h / 2); y1 = Math.max(y1, n.y + n.h / 2);
+  });
+  const ox = PAD - x0, oy = PAD - y0;
+  const W = x1 - x0 + PAD * 2, H = y1 - y0 + PAD * 2;
+  box = { w: W, h: H, rx: root.x + root.w / 2 + ox, ry: oy, ox, oy };
+
+  nodes.forEach(n => {
+    const show = visSet.has(n);
+    n.el.hidden = !show;
+    if (!show) return;
+    n.el.style.left = (n.x + ox) + "px";
+    n.el.style.top = (n.y + oy - n.h / 2) + "px";
+    n.el.classList.toggle("dim", isDim(n));
+    n.el.classList.toggle("hit", !!filter && n.own && n.depth >= 2 && n.eff.includes(filter));
+    n.el.classList.toggle("sel", n === selected);
+    if (n.moreEl) {
+      const cnt = (function c(m) { return m.k.reduce((s, k) => s + 1 + c(k), 0); })(n);
+      n.moreEl.hidden = n.open;
+      n.moreEl.textContent = "+" + cnt;
+    }
+    n.el.setAttribute("aria-expanded", n.k.length ? String(n.open) : "");
+  });
+
+  let d = "";
+  vis.forEach(n => {
+    if (n === root) return;
+    const p = n.parent;
+    let x1c, y1c;
+    if (p === root) { x1c = (n.side > 0 ? root.x + root.w : root.x) + ox; y1c = oy; }
+    else { x1c = (n.side > 0 ? p.x + p.w : p.x) + ox; y1c = p.y + oy; }
+    const x2c = (n.side > 0 ? n.x : n.x + n.w) + ox, y2c = n.y + oy;
+    const mx = (x1c + x2c) / 2;
+    d += `<path style="--h:${n.hue}"${isDim(n) ? ' class="dim"' : ""} d="M${x1c} ${y1c} C${mx} ${y1c} ${mx} ${y2c} ${x2c} ${y2c}"/>`;
+  });
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.innerHTML = d;
+  canvas.style.width = W + "px"; canvas.style.height = H + "px";
+  applyScale();
+}
+
+function applyScale() {
+  canvas.style.transform = `scale(${scale})`;
+  zoomer.style.width = box.w * scale + "px";
+  zoomer.style.height = box.h * scale + "px";
+  const maxH = Math.min(window.innerHeight * 0.8, 840);
+  vp.style.height = Math.max(380, Math.min(maxH, box.h * scale + 6)) + "px";
+  $("zv").textContent = Math.round(scale * 100) + "%";
+}
+function setScale(s) {
+  const old = scale;
+  scale = Math.min(1.5, Math.max(0.25, Math.round(s * 100) / 100));
+  const cx = (vp.scrollLeft + vp.clientWidth / 2) / old, cy = (vp.scrollTop + vp.clientHeight / 2) / old;
+  applyScale();
+  vp.scrollLeft = cx * scale - vp.clientWidth / 2;
+  vp.scrollTop = cy * scale - vp.clientHeight / 2;
+}
+function centerRoot() {
+  vp.scrollLeft = box.rx * scale - vp.clientWidth / 2;
+  vp.scrollTop = box.ry * scale - vp.clientHeight / 2;
+}
+function focusNode(n) {
+  vp.scrollLeft = (n.x + n.w / 2 + box.ox) * scale - vp.clientWidth / 2;
+  vp.scrollTop = (n.y + box.oy) * scale - vp.clientHeight / 2;
+}
+
+/* ---------- Niche filter ---------- */
+function recomputeOpen() {
+  nodes.forEach(n => {
+    if (!n.k.length || n === root) return;
+    n.open = (filter && n.depth === 1) ? branchRel(n) : n.defOpen;
+  });
+}
+function setFilter(k) {
+  filter = k;
+  $("chips").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.k === k)));
+  const hits = k ? nodes.filter(n => n.own && n.depth >= 2 && n.eff.includes(k)).length : 0;
+  $("info").innerHTML = k
+    ? `Ниша: <b>${NICHES[k].l}</b> (${NICHES[k].ex}). Зелёным обведено блоков именно для вас: <b>${hits}</b>. Неподходящие ветки приглушены.`
+    : "";
+  recomputeOpen();
+  layout();
+  centerRoot();
+  if (selected) showDetail(selected);
+}
+function detect(text) {
+  const s = " " + text.toLowerCase().trim() + " ";
+  if (s.trim() === "") return null;
+  let best = null, bs = 0;
+  KEYS.forEach(k => {
+    const sc = NICHES[k].kw.filter(w => s.includes(w)).length;
+    if (sc > bs) { best = k; bs = sc; }
+  });
+  return best;
+}
+
+$("chips").innerHTML = KEYS.map(k => `<button type="button" class="chip" data-k="${k}" aria-pressed="false" style="--h:${NHUE[k]}" title="${NICHES[k].ex}">${NICHES[k].l}</button>`).join("");
+$("ex").innerHTML = "Например: " + EXAMPLES.map(e => `<button type="button" data-e="${e}">${e}</button>`).join(" · ");
+$("nichelist").innerHTML = KEYS.map(k => `<li><b>${NICHES[k].l}</b>: ${NICHES[k].ex}</li>`).join("");
+
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const k = b.dataset.k;
+  $("niche").value = "";
+  setFilter(filter === k ? null : k);
+});
+$("ex").addEventListener("click", e => {
+  const b = e.target.closest("button[data-e]"); if (!b) return;
+  $("niche").value = b.dataset.e;
+  const k = detect(b.dataset.e);
+  if (k) setFilter(k);
+});
+$("niche").addEventListener("input", e => {
+  const v = e.target.value;
+  if (!v.trim()) { setFilter(null); return; }
+  const k = detect(v);
+  if (k) setFilter(k);
+  else { $("info").textContent = "Нишу по тексту определить не удалось. Выберите тип кнопкой."; }
+});
+
+/* ---------- Detail panel ---------- */
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function pathOf(n) { const a = []; for (let p = n.parent; p && p !== root; p = p.parent) a.unshift(p.t); return a.join(" › "); }
+
+function showDetail(n) {
+  const side = $("panel");
+  side.innerHTML = "";
+  side.style.setProperty("--h", n.hue === undefined ? 265 : n.hue);
+  const h = el("h2", "", n.t);
+  if (n.m) h.append(el("span", "mk " + (n.p || "g"), n.m));
+  side.append(h);
+  const cr = pathOf(n);
+  if (cr) side.append(el("p", "crumb", cr));
+
+  let desc = n.d, inherited = false;
+  if (!desc && !(n.tools && n.tools.length)) {
+    for (let p = n.parent; p && p !== root; p = p.parent) if (p.d) { desc = p.d; inherited = true; break; }
+  }
+  if (desc) side.append(el("p", inherited ? "muted" : "", (inherited ? "Из ветки: " : "") + desc));
+
+  if (n.tools && n.tools.length) {
+    side.append(el("h3", "", "Инструменты и форматы"));
+    const ul = el("ul", "tools");
+    n.tools.forEach(s => {
+      const li = el("li");
+      const i = s.indexOf(" — ");
+      if (i > 0) li.append(el("b", "", s.slice(0, i)), document.createTextNode(" — " + s.slice(i + 3)));
+      else li.textContent = s;
+      ul.append(li);
+    });
+    side.append(ul);
+  }
+
+  if (n.k.length) {
+    side.append(el("h3", "", "Внутри"));
+    const w = el("div", "inside");
+    n.k.forEach(c => {
+      const b = el("button", "", c.t);
+      b.type = "button";
+      b.addEventListener("click", () => { n.open = true; selected = c; layout(); showDetail(c); focusNode(c); });
+      w.append(b);
+    });
+    side.append(w);
+  }
+
+  side.append(el("h3", "", "Подходит нишам"));
+  if (n.eff.length === KEYS.length) side.append(el("p", "muted", "Подходит всем нишам."));
+  else if (!n.eff.length) side.append(el("p", "muted", "Не рекомендуется для бизнеса в РФ."));
+  else {
+    const f = el("div", "fit");
+    KEYS.forEach(k => { if (n.eff.includes(k)) { const sp = el("span", k === filter ? "on" : "", NICHES[k].l); sp.style.setProperty("--nh", NHUE[k]); f.append(sp); } });
+    side.append(f);
+  }
+  side.scrollTop = 0;
+}
+
+/* ---------- Interaction ---------- */
+let dragged = false;
+function activate(n) {
+  if (n === root) return;
+  const px = (n.x + box.ox) * scale - vp.scrollLeft;
+  const py = (n.y + box.oy) * scale - vp.scrollTop;
+  selected = n;
+  if (n.k.length) n.open = !n.open;
+  layout();
+  vp.scrollLeft = (n.x + box.ox) * scale - px;
+  vp.scrollTop = (n.y + box.oy) * scale - py;
+  showDetail(n);
+}
+nodes.forEach(n => {
+  n.el.addEventListener("click", () => { if (!dragged) activate(n); });
+  n.el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(n); } });
+});
+
+let drag = null;
+vp.addEventListener("pointerdown", e => {
+  if (e.pointerType !== "mouse" || e.button !== 0) return;
+  drag = { x: e.clientX, y: e.clientY, sl: vp.scrollLeft, st: vp.scrollTop };
+  dragged = false;
+});
+window.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!dragged && Math.hypot(dx, dy) > 5) { dragged = true; vp.classList.add("drag"); }
+  if (dragged) { vp.scrollLeft = drag.sl - dx; vp.scrollTop = drag.st - dy; }
+});
+window.addEventListener("pointerup", () => {
+  drag = null; vp.classList.remove("drag");
+  setTimeout(() => (dragged = false), 0);
+});
+
+$("zin").addEventListener("click", () => setScale(scale + 0.1));
+$("zout").addEventListener("click", () => setScale(scale - 0.1));
+$("zfit").addEventListener("click", () => {
+  scale = Math.max(0.25, Math.min(1, Math.round(((vp.clientWidth - 4) / box.w) * 100) / 100));
+  applyScale();
+  vp.scrollLeft = 0;
+  vp.scrollTop = Math.max(0, box.ry * scale - vp.clientHeight / 2);
+});
+$("expand").addEventListener("click", () => { nodes.forEach(n => { if (n.k.length) n.open = true; }); layout(); });
+$("collapse").addEventListener("click", () => { nodes.forEach(n => { if (n.k.length) n.open = n.depth === 0; }); layout(); centerRoot(); });
+
+/* ---------- Boot ---------- */
+function boot() {
+  measure();
+  layout();
+  scale = window.innerWidth < 700 ? 0.7 : 0.85;
+  applyScale();
+  centerRoot();
+}
+$("sub").textContent = `Карта для маркетолога: ${nodes.length - 1} каналов и инструментов и применение по 13 нишам. Нажмите на ветку, чтобы раскрыть её.`;
+nodes.forEach(n => { n.w = 100; n.h = 30; });
+layout();
+const fontsReady = document.fonts && document.fonts.load
+  ? Promise.all([document.fonts.load("400 14px Onest"), document.fonts.load("500 15px Onest"), document.fonts.load("600 19px Onest")]).catch(() => {})
+  : Promise.resolve();
+fontsReady.then(boot);
+setTimeout(() => { if (nodes[1].w === 100) boot(); }, 1500);
+</script>
